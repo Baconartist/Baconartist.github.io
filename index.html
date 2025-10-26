@@ -20,7 +20,9 @@
     .brand h1{font-size:16px;margin:0;letter-spacing:.2px}
     .email{font-size:13px;color:var(--muted)}
     .email:hover{color:var(--text)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:24px}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(240px,1fr));gap:14px;margin-top:24px}
+    @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
+    @media (max-width:560px){.grid{grid-template-columns:1fr}}
     .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;text-align:left}
     .row{display:flex;align-items:center;justify-content:space-between}
     .handle{font-weight:700;font-size:18px}
@@ -87,11 +89,6 @@
         </div>
         <div class="muted">1 post on each account · 18% off</div>
         <div class="price">$45 total</div>
-        <div class="links" style="margin-top:10px">
-          <a class="btn" href="https://www.tiktok.com/@vmmatica" target="_blank" rel="noopener">@vmmatica</a>
-          <a class="btn" href="https://www.tiktok.com/@vpolariss" target="_blank" rel="noopener">@vpolariss</a>
-          <a class="btn" href="https://www.tiktok.com/@vjubzzs" target="_blank" rel="noopener">@vjubzzs</a>
-        </div>
       </article>
     </div>
 
@@ -100,12 +97,27 @@
 
   <script>
     document.getElementById('year').textContent=new Date().getFullYear();
-    const ids=["vmmatica","vpolariss","vjubzzs"];
-    function format(n){if(!n||isNaN(n))return '—';if(n>=1e6)return (n/1e6).toFixed(1).replace(/\.0$/,'')+'M';if(n>=1e3)return (n/1e3).toFixed(1).replace(/\.0$/,'')+'k';return String(n)}
-    fetch('followers.json',{cache:'no-store'})
-      .then(r=>r.ok?r.json():Promise.reject())
-      .then(data=>{ids.forEach(h=>{const el=document.getElementById('followers-'+h);if(el)el.textContent=format(data[h])});})
-      .catch(()=>{});
+
+    // Robust followers loader (works even if followers.json is missing)
+    document.addEventListener('DOMContentLoaded', function(){
+      const ids=['vmmatica','vpolariss','vjubzzs'];
+      function format(n){
+        const x=Number(n);
+        if(!isFinite(x)) return '—';
+        if(x>=1e6) return (x/1e6).toFixed(1).replace(/\.0$/,'')+'M';
+        if(x>=1e3) return (x/1e3).toFixed(1).replace(/\.0$/,'')+'k';
+        return String(x);
+      }
+      fetch('./followers.json',{cache:'no-store'})
+        .then(r=> r.ok ? r.json() : Promise.reject())
+        .then(data=>{
+          ids.forEach(h=>{
+            const el=document.getElementById('followers-'+h);
+            if(el){ el.textContent = format(data[h]); }
+          });
+        })
+        .catch(()=>{ /* leave placeholders */ });
+    });
   </script>
 </body>
 </html>
