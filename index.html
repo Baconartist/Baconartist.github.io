@@ -60,34 +60,35 @@
   </div>
 
   <div class="wrap">
-    <div class="headline"><strong>50+ million views</strong> in promotions.</div>
+    <div class="headline"><strong>50+ million views</strong> in successful promotions</div>
 
     <div class="grid">
       <article class="card">
         <div class="row"><div class="handle">@vmmatica</div><div class="pill limited">Limited</div></div>
         <div class="stat"><b id="followers-vmmatica">—</b><span class="muted">Followers</span></div>
         <div class="price-tag">$20 per post</div>
-        <a class="btn" href="https://www.tiktok.com/@vmmatica" target="_blank">Open TikTok</a>
+        <a class="btn" href="form.html?plan=vmmatica" rel="noopener">Open TikTok</a>
       </article>
 
       <article class="card">
         <div class="row"><div class="handle">@vpolariss</div><div class="pill active">Active</div></div>
         <div class="stat"><b id="followers-vpolariss">—</b><span class="muted">Followers</span></div>
         <div class="price-tag">$18 per post</div>
-        <a class="btn" href="https://www.tiktok.com/@vpolariss" target="_blank">Open TikTok</a>
+        <a class="btn" href="form.html?plan=vpolariss" rel="noopener">Open TikTok</a>
       </article>
 
       <article class="card">
         <div class="row"><div class="handle">@vjubzzs</div><div class="pill active">Active</div></div>
         <div class="stat"><b id="followers-vjubzzs">—</b><span class="muted">Followers</span></div>
         <div class="price-tag">$15 per post</div>
-        <a class="btn" href="https://www.tiktok.com/@vjubzzs" target="_blank">Open TikTok</a>
+        <a class="btn" href="form.html?plan=vjubzzs" rel="noopener">Open TikTok</a>
       </article>
 
       <article class="card campaign-card" style="min-height:140px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center">
         <div class="handle" style="margin-bottom:4px">Campaign Mini</div>
         <div class="muted" style="margin-bottom:8px">1 post on each account · 18% off</div>
         <div class="price">$45 total</div>
+        <a class="btn" style="margin-top:14px" href="form.html?plan=campaign" rel="noopener">Book Campaign Mini</a>
       </article>
     </div>
 
@@ -120,7 +121,6 @@
         const num = Number(String(followers).replace(/[^0-9.]/g, ''));
         if (Number.isFinite(num)) data[key] = num;
       }
-      console.log('Loaded follower data:', data);
       return data;
     }
 
@@ -145,7 +145,6 @@
         console.error('Error loading followers:', err);
       }
     }
-
     loadFollowers();
   </script>
 </body>
