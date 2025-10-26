@@ -28,14 +28,16 @@
     @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
     @media (max-width:560px){.grid{grid-template-columns:1fr}}
     .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;
-      padding:16px;text-align:left;display:flex;flex-direction:column;min-height:260px}
+      padding:16px;text-align:left;display:flex;flex-direction:column;min-height:260px;transition:all .3s ease}
+    .card:hover{transform:translateY(-3px);border-color:var(--accent)}
     .row{display:flex;align-items:center;justify-content:space-between}
     .handle{font-weight:700;font-size:18px}
     .muted{color:var(--muted);font-size:13px}
     .pill{padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid rgba(255,255,255,.08)}
     .active{background:var(--active-bg);color:var(--good)}
     .limited{background:var(--limited-bg);color:var(--warn)}
-    .stat{margin-top:10px}
+    .stat{margin-top:10px;opacity:0;transition:opacity .4s ease}
+    .stat.loaded{opacity:1}
     .stat b{display:block;font-size:20px}
     .btn{display:inline-block;margin-top:auto;padding:10px 12px;border-radius:10px;
       border:1px solid rgba(255,255,255,.08);background:#0f1623;font-size:13px;text-align:center}
@@ -92,44 +94,53 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const DATA_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTjBhQmisrzSUVqP1YeTfdX2Ia5fztU66ws7lmbkbWTvdQhRnQ_QZgWaNOlqUuYMS9ALHi9V8pn73pH/pub?output=csv';
-    const HANDLES = ['vmmatica','vpolariss','vjubzzs'];
+    const HANDLES = ['vmmatica', 'vpolariss', 'vjubzzs'];
 
-    function formatNumber(n){
-      const x=Number(n);
-      if(!isFinite(x))return '—';
-      if(x>=1e6)return (x/1e6).toFixed(1).replace(/\\.0$/,'')+'M';
-      if(x>=1e3)return (x/1e3).toFixed(1).replace(/\\.0$/,'')+'k';
+    function formatNumber(n) {
+      const x = Number(n);
+      if (!isFinite(x)) return '—';
+      if (x >= 1e6) return (x / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+      if (x >= 1e3) return (x / 1e3).toFixed(1).replace(/\.0$/, '') + 'k';
       return String(x);
     }
 
-    function parseCSV(text){
-      const lines=text.trim().split(/\\r?\\n/).filter(Boolean);
-      lines.shift();
-      const data={};
-      for(const line of lines){
-        const [rawHandle,rawFollowers='']=line.split(',');
-        const handle=rawHandle.trim().replace(/^@/,'');
-        const num=Number(String(rawFollowers).replace(/[^0-9.]/g,''));
-        if(Number.isFinite(num))data[handle]=num;
+    function parseCSV(text) {
+      const rows = text.trim().split(/\r?\n/);
+      rows.shift(); // remove header row
+      const data = {};
+      for (const row of rows) {
+        const [handle, followers] = row.split(',');
+        if (!handle || !followers) continue;
+        const key = handle.trim().replace(/^@/, '');
+        const num = Number(String(followers).replace(/[^0-9.]/g, ''));
+        if (Number.isFinite(num)) data[key] = num;
       }
+      console.log('Loaded follower data:', data);
       return data;
     }
 
-    async function loadFollowers(){
-      try{
-        const res=await fetch(DATA_URL+'&_='+Date.now());
-        const csv=await res.text();
-        const data=parseCSV(csv);
-        HANDLES.forEach(h=>{
-          const el=document.getElementById('followers-'+h);
-          if(el)el.textContent=formatNumber(data[h]);
+    async function loadFollowers() {
+      try {
+        const res = await fetch(DATA_URL + '&_=' + Date.now());
+        if (!res.ok) throw new Error('Network error ' + res.status);
+        const csv = await res.text();
+        const data = parseCSV(csv);
+
+        HANDLES.forEach(h => {
+          const el = document.getElementById('followers-' + h);
+          if (el) {
+            el.textContent = formatNumber(data[h]);
+            el.parentElement.classList.add('loaded');
+          }
         });
+
         document.getElementById('last-updated').textContent =
           'Last updated: ' + new Date().toLocaleString();
-      }catch(e){
-        console.warn('Follower data failed:',e);
+      } catch (err) {
+        console.error('Error loading followers:', err);
       }
     }
+
     loadFollowers();
   </script>
 </body>
