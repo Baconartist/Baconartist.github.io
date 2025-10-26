@@ -24,6 +24,8 @@
     .brand h1{font-size:16px;margin:0;letter-spacing:.2px}
     .email{font-size:13px;color:var(--muted)}
     .email:hover{color:var(--text)}
+    .headline{margin-top:28px;text-align:center;font-size:18px;color:var(--muted);}
+    .headline strong{color:var(--accent);font-weight:600;}
     .grid{display:grid;grid-template-columns:repeat(3,minmax(260px,1fr));gap:18px;margin-top:24px;align-items:stretch}
     @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
     @media (max-width:560px){.grid{grid-template-columns:1fr}}
@@ -39,6 +41,7 @@
     .stat{margin-top:10px;opacity:0;transition:opacity .4s ease}
     .stat.loaded{opacity:1}
     .stat b{display:block;font-size:20px}
+    .price-tag{margin-top:8px;font-weight:600;font-size:15px;color:var(--accent)}
     .btn{display:inline-block;margin-top:auto;padding:10px 12px;border-radius:10px;
       border:1px solid rgba(255,255,255,.08);background:#0f1623;font-size:13px;text-align:center}
     .btn:hover{border-color:var(--accent)}
@@ -57,25 +60,27 @@
   </div>
 
   <div class="wrap">
+    <div class="headline"><strong>50+ million views</strong> in successful promotions</div>
+
     <div class="grid">
       <article class="card">
         <div class="row"><div class="handle">@vmmatica</div><div class="pill limited">Limited</div></div>
         <div class="stat"><b id="followers-vmmatica">—</b><span class="muted">Followers</span></div>
-        <div class="stat"><b>$20</b><span class="muted">Rate / post</span></div>
+        <div class="price-tag">$20 per post</div>
         <a class="btn" href="https://www.tiktok.com/@vmmatica" target="_blank">Open TikTok</a>
       </article>
 
       <article class="card">
         <div class="row"><div class="handle">@vpolariss</div><div class="pill active">Active</div></div>
         <div class="stat"><b id="followers-vpolariss">—</b><span class="muted">Followers</span></div>
-        <div class="stat"><b>$18</b><span class="muted">Rate / post</span></div>
+        <div class="price-tag">$18 per post</div>
         <a class="btn" href="https://www.tiktok.com/@vpolariss" target="_blank">Open TikTok</a>
       </article>
 
       <article class="card">
         <div class="row"><div class="handle">@vjubzzs</div><div class="pill active">Active</div></div>
         <div class="stat"><b id="followers-vjubzzs">—</b><span class="muted">Followers</span></div>
-        <div class="stat"><b>$15</b><span class="muted">Rate / post</span></div>
+        <div class="price-tag">$15 per post</div>
         <a class="btn" href="https://www.tiktok.com/@vjubzzs" target="_blank">Open TikTok</a>
       </article>
 
@@ -106,7 +111,7 @@
 
     function parseCSV(text) {
       const rows = text.trim().split(/\r?\n/);
-      rows.shift(); // remove header row
+      rows.shift();
       const data = {};
       for (const row of rows) {
         const [handle, followers] = row.split(',');
