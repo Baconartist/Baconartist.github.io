@@ -6,26 +6,29 @@
   <title>Promotions with @vmmatica</title>
   <style>
     :root{
-      --bg:#0d1117;--card:#111827;--muted:#9aa4b2;--text:#e6edf3;--accent:#59c1ff;--ring:rgba(89,193,255,.35);
+      --bg:#0d1117;--card:#111827;--muted:#9aa4b2;--text:#e6edf3;--accent:#59c1ff;
       --good:#22c55e;--warn:#f59e0b;--limited-bg:rgba(245,158,11,.12);--active-bg:rgba(34,197,94,.12);
     }
     *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);color:var(--text);font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);color:var(--text);
+      font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     a{color:inherit;text-decoration:none}
     .wrap{max-width:1100px;margin:0 auto;padding:24px 16px 80px}
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(6px);background:rgba(13,17,23,.75);border-bottom:1px solid rgba(255,255,255,.06)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;padding:10px 16px}
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(6px);
+      background:rgba(13,17,23,.75);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1100px;
+      margin:0 auto;padding:10px 16px}
     .brand{display:flex;gap:10px;align-items:center}
-    .logo{width:36px;height:36px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
+    .logo{width:36px;height:36px;border-radius:10px;
+      background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
     .brand h1{font-size:16px;margin:0;letter-spacing:.2px}
     .email{font-size:13px;color:var(--muted)}
     .email:hover{color:var(--text)}
     .grid{display:grid;grid-template-columns:repeat(3,minmax(260px,1fr));gap:18px;margin-top:24px;align-items:stretch}
     @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
     @media (max-width:560px){.grid{grid-template-columns:1fr}}
-    @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
-    @media (max-width:560px){.grid{grid-template-columns:1fr}}
-    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;text-align:left;display:flex;flex-direction:column;min-height:260px}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;
+      padding:16px;text-align:left;display:flex;flex-direction:column;min-height:260px}
     .row{display:flex;align-items:center;justify-content:space-between}
     .handle{font-weight:700;font-size:18px}
     .muted{color:var(--muted);font-size:13px}
@@ -34,11 +37,13 @@
     .limited{background:var(--limited-bg);color:var(--warn)}
     .stat{margin-top:10px}
     .stat b{display:block;font-size:20px}
-    .btn{display:inline-block;margin-top:auto;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:#0f1623;font-size:13px;text-align:center}
+    .btn{display:inline-block;margin-top:auto;padding:10px 12px;border-radius:10px;
+      border:1px solid rgba(255,255,255,.08);background:#0f1623;font-size:13px;text-align:center}
     .btn:hover{border-color:var(--accent)}
     footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center}
     .campaign-card{grid-column:1/-1;text-align:center}
     .campaign-card .price{font-size:24px;font-weight:700;margin-top:10px}
+    .updated{color:var(--muted);font-size:12px;text-align:center;margin-top:10px}
   </style>
 </head>
 <body>
@@ -51,40 +56,27 @@
 
   <div class="wrap">
     <div class="grid">
-      <!-- @vmmatica -->
       <article class="card">
-        <div class="row">
-          <div class="handle">@vmmatica</div>
-          <div class="pill limited">Limited</div>
-        </div>
+        <div class="row"><div class="handle">@vmmatica</div><div class="pill limited">Limited</div></div>
         <div class="stat"><b id="followers-vmmatica">—</b><span class="muted">Followers</span></div>
         <div class="stat"><b>$20</b><span class="muted">Rate / post</span></div>
-        <a class="btn" href="https://www.tiktok.com/@vmmatica" target="_blank" rel="noopener">Open TikTok</a>
+        <a class="btn" href="https://www.tiktok.com/@vmmatica" target="_blank">Open TikTok</a>
       </article>
 
-      <!-- @vpolariss -->
       <article class="card">
-        <div class="row">
-          <div class="handle">@vpolariss</div>
-          <div class="pill active">Active</div>
-        </div>
+        <div class="row"><div class="handle">@vpolariss</div><div class="pill active">Active</div></div>
         <div class="stat"><b id="followers-vpolariss">—</b><span class="muted">Followers</span></div>
         <div class="stat"><b>$18</b><span class="muted">Rate / post</span></div>
-        <a class="btn" href="https://www.tiktok.com/@vpolariss" target="_blank" rel="noopener">Open TikTok</a>
+        <a class="btn" href="https://www.tiktok.com/@vpolariss" target="_blank">Open TikTok</a>
       </article>
 
-      <!-- @vjubzzs -->
       <article class="card">
-        <div class="row">
-          <div class="handle">@vjubzzs</div>
-          <div class="pill active">Active</div>
-        </div>
+        <div class="row"><div class="handle">@vjubzzs</div><div class="pill active">Active</div></div>
         <div class="stat"><b id="followers-vjubzzs">—</b><span class="muted">Followers</span></div>
         <div class="stat"><b>$15</b><span class="muted">Rate / post</span></div>
-        <a class="btn" href="https://www.tiktok.com/@vjubzzs" target="_blank" rel="noopener">Open TikTok</a>
+        <a class="btn" href="https://www.tiktok.com/@vjubzzs" target="_blank">Open TikTok</a>
       </article>
 
-      <!-- Campaign Mini -->
       <article class="card campaign-card" style="min-height:140px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center">
         <div class="handle" style="margin-bottom:4px">Campaign Mini</div>
         <div class="muted" style="margin-bottom:8px">1 post on each account · 18% off</div>
@@ -92,32 +84,53 @@
       </article>
     </div>
 
+    <div class="updated" id="last-updated">Last updated: —</div>
     <footer>© <span id="year"></span> Promotions with @vmmatica</footer>
   </div>
 
   <script>
-    document.getElementById('year').textContent=new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Robust followers loader (works even if followers.json is missing)
-    document.addEventListener('DOMContentLoaded', function(){
-      const ids=['vmmatica','vpolariss','vjubzzs'];
-      function format(n){
-        const x=Number(n);
-        if(!isFinite(x)) return '—';
-        if(x>=1e6) return (x/1e6).toFixed(1).replace(/\.0$/,'')+'M';
-        if(x>=1e3) return (x/1e3).toFixed(1).replace(/\.0$/,'')+'k';
-        return String(x);
+    const DATA_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTjBhQmisrzSUVqP1YeTfdX2Ia5fztU66ws7lmbkbWTvdQhRnQ_QZgWaNOlqUuYMS9ALHi9V8pn73pH/pub?output=csv';
+    const HANDLES = ['vmmatica','vpolariss','vjubzzs'];
+
+    function formatNumber(n){
+      const x=Number(n);
+      if(!isFinite(x))return '—';
+      if(x>=1e6)return (x/1e6).toFixed(1).replace(/\\.0$/,'')+'M';
+      if(x>=1e3)return (x/1e3).toFixed(1).replace(/\\.0$/,'')+'k';
+      return String(x);
+    }
+
+    function parseCSV(text){
+      const lines=text.trim().split(/\\r?\\n/).filter(Boolean);
+      lines.shift();
+      const data={};
+      for(const line of lines){
+        const [rawHandle,rawFollowers='']=line.split(',');
+        const handle=rawHandle.trim().replace(/^@/,'');
+        const num=Number(String(rawFollowers).replace(/[^0-9.]/g,''));
+        if(Number.isFinite(num))data[handle]=num;
       }
-      fetch('./followers.json',{cache:'no-store'})
-        .then(r=> r.ok ? r.json() : Promise.reject())
-        .then(data=>{
-          ids.forEach(h=>{
-            const el=document.getElementById('followers-'+h);
-            if(el){ el.textContent = format(data[h]); }
-          });
-        })
-        .catch(()=>{ /* leave placeholders */ });
-    });
+      return data;
+    }
+
+    async function loadFollowers(){
+      try{
+        const res=await fetch(DATA_URL+'&_='+Date.now());
+        const csv=await res.text();
+        const data=parseCSV(csv);
+        HANDLES.forEach(h=>{
+          const el=document.getElementById('followers-'+h);
+          if(el)el.textContent=formatNumber(data[h]);
+        });
+        document.getElementById('last-updated').textContent =
+          'Last updated: ' + new Date().toLocaleString();
+      }catch(e){
+        console.warn('Follower data failed:',e);
+      }
+    }
+    loadFollowers();
   </script>
 </body>
 </html>
