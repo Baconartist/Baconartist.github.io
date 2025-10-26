@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Andrew | TikTok Status & Promos</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #121823;
+      --muted: #8aa0b2;
+      --text: #e6eef6;
+      --accent: #5cc8ff;
+      --good: #2ecc71;
+      --warn: #f1c40f;
+      --bad: #e74c3c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(180deg, #0b0f14 0%, #0e1420 100%);
+      color: var(--text);
+    }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 28px 16px 80px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo { width: 40px; height: 40px; border-radius: 12px; background: radial-gradient(circle at 30% 30%, #5cc8ff, #8a5cff 60%, #ff5cc8 100%); }
+    h1 { font-size: 20px; margin: 0; letter-spacing: 0.3px; }
+    .sub { color: var(--muted); font-size: 13px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .card { background: linear-gradient(180deg, #121823, #0f1620); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .name { font-weight: 700; letter-spacing: .2px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .pill { padding: 4px 10px; border-radius: 999px; font-size: 12px; border: 1px solid rgba(255,255,255,.08); }
+    .live { background: rgba(46, 204, 113,.12); color: var(--good); }
+    .hold { background: rgba(241, 196, 15,.12); color: var(--warn); }
+    .down { background: rgba(231, 76, 60,.12); color: var(--bad); }
+
+    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 12px; }
+    .stat { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 12px; padding: 10px; text-align: center; }
+    .stat b { display: block; font-size: 18px; margin-bottom: 4px; }
+
+    .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .btn { text-decoration: none; color: var(--text); background: #101723; border: 1px solid rgba(255,255,255,.08); padding: 8px 12px; border-radius: 10px; font-size: 13px; }
+    .btn:hover { border-color: rgba(92,200,255,.6); }
+
+    .promos { margin-top: 14px; border-top: 1px dashed rgba(255,255,255,.12); padding-top: 12px; }
+    .promo { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; }
+    .promo span { font-size: 14px; }
+
+    footer { margin-top: 28px; color: var(--muted); font-size: 12px; text-align: center; }
+
+    /* Responsive tweaks */
+    @media (max-width: 520px) {
+      .stats { grid-template-columns: repeat(2,1fr); }
+      header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Andrew — TikTok Status</h1>
+          <div class="sub">Live overview of accounts and promotions</div>
+        </div>
+      </div>
+      <a class="btn" href="mailto:bookings@example.com">Contact</a>
+    </header>
+
+    <!-- Accounts grid -->
+    <section class="grid" id="accounts">
+
+      <!-- ACCOUNT CARD EXAMPLE (duplicate and edit) -->
+      <article class="card">
+        <div class="row">
+          <div>
+            <div class="name">@vmmatica</div>
+            <div class="muted">Main channel • Comedy / edits</div>
+          </div>
+          <div class="pill live">Active</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><b id="vmmatica-followers">230k</b><span class="muted">Followers</span></div>
+          <div class="stat"><b>52M</b><span class="muted">Views</span></div>
+          <div class="stat"><b>7d</b><span class="muted">Last Post</span></div>
+        </div>
+        <div class="links">
+          <a class="btn" href="https://www.tiktok.com/@vmmatica" target="_blank" rel="noopener">TikTok</a>
+          <a class="btn" href="#promos">Promos</a>
+          <a class="btn" href="https://youtube.com/@CubingEncoded" target="_blank" rel="noopener">YouTube</a>
+        </div>
+        <div class="promos">
+          <div class="promo"><span>Open slots this week</span><span class="pill live">Available</span></div>
+          <div class="promo"><span>Music label package</span><span class="pill hold">Waitlist</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="row">
+          <div>
+            <div class="name">@vpolariss</div>
+            <div class="muted">Alt channel • Aesthetic</div>
+          </div>
+          <div class="pill hold">Limited</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>120k</b><span class="muted">Followers</span></div>
+          <div class="stat"><b>18M</b><span class="muted">Views</span></div>
+          <div class="stat"><b>2d</b><span class="muted">Last Post</span></div>
+        </div>
+        <div class="links">
+          <a class="btn" href="https://www.tiktok.com/@vpolariss" target="_blank" rel="noopener">TikTok</a>
+          <a class="btn" href="#promos">Promos</a>
+        </div>
+        <div class="promos">
+          <div class="promo"><span>UGC + Post bundle</span><span class="pill live">Active</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="row">
+          <div>
+            <div class="name">@vjubzss</div>
+            <div class="muted">Edits • Trends</div>
+          </div>
+          <div class="pill down">Paused</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>56k</b><span class="muted">Followers</span></div>
+          <div class="stat"><b>4.2M</b><span class="muted">Views</span></div>
+          <div class="stat"><b>21d</b><span class="muted">Last Post</span></div>
+        </div>
+        <div class="links">
+          <a class="btn" href="https://www.tiktok.com/@vjubzss" target="_blank" rel="noopener">TikTok</a>
+          <a class="btn" href="#promos">Promos</a>
+        </div>
+        <div class="promos">
+          <div class="promo"><span>Song promo slots</span><span class="pill down">Closed</span></div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Promotions section -->
+    <section id="promos" style="margin-top:24px;">
+      <div class="card">
+        <div class="row">
+          <h2 style="margin:0;font-size:18px;">Promotion Packages</h2>
+          <a class="btn" href="mailto:bookings@example.com?subject=Promo%20Inquiry">Book</a>
+        </div>
+        <div class="promo"><span><b>Single Post</b> — 1 video on any channel</span><span class="pill live">$25</span></div>
+        <div class="promo"><span><b>Campaign Mini</b> — 3 videos over 7 days</span><span class="pill live">$60</span></div>
+        <div class="promo"><span><b>Label Pack</b> — 6 videos across channels</span><span class="pill hold">$120</span></div>
+        <div class="muted" style="margin-top:8px;">Turnaround 24–72h • Custom briefs welcome</div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Andrew — All promotions are subject to platform guidelines.
+    </footer>
+  </div>
+
+  <script>
+    // Simple JS helpers (optional)
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // If later you want follower counts to auto-update, you can fetch from a JSON file you edit
+    // Example (host a followers.json at the root and update numbers without editing HTML):
+    // fetch('followers.json').then(r=>r.json()).then(data => {
+    //   document.getElementById('vmmatica-followers').textContent = data.vmmatica;
+    // });
+  </script>
+</body>
+</html>
