@@ -1,134 +1,210 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Promotions with @vmmatica</title>
-  <style>
-    :root{
-      --bg:#0d1117;--card:#111827;--muted:#9aa4b2;--text:#e6edf3;--accent:#59c1ff;
-      --good:#22c55e;--warn:#f59e0b;--limited-bg:rgba(245,158,11,.12);--active-bg:rgba(34,197,94,.12);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);color:var(--text);
-      font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1100px;margin:0 auto;padding:24px 16px 80px}
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(6px);
-      background:rgba(13,17,23,.75);border-bottom:1px solid rgba(255,255,255,.06)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1100px;
-      margin:0 auto;padding:10px 16px}
-    .brand{display:flex;gap:10px;align-items:center}
-    .logo{width:36px;height:36px;border-radius:10px;
-      background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
-    .brand h1{font-size:16px;margin:0;letter-spacing:.2px}
-    .email{font-size:13px;color:var(--muted)}
-    .email:hover{color:var(--text)}
-    .headline{margin-top:28px;text-align:center;font-size:18px;color:var(--muted);}
-    .headline strong{color:var(--accent);font-weight:600;}
-    .grid{display:grid;grid-template-columns:repeat(3,minmax(260px,1fr));gap:18px;margin-top:24px;align-items:stretch}
-    @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
-    @media (max-width:560px){.grid{grid-template-columns:1fr}}
-    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;
-      padding:16px;text-align:left;display:flex;flex-direction:column;min-height:290px;transition:all .3s ease}
-    .card:hover{transform:translateY(-3px);border-color:var(--accent)}
-    .row{display:flex;align-items:center;justify-content:space-between}
-    .handle{font-weight:700;font-size:18px}
-    .muted{color:var(--muted);font-size:13px}
-    .pill{padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid rgba(255,255,255,.08)}
-    .active{background:var(--active-bg);color:var(--good)}
-    .limited{background:var(--limited-bg);color:var(--warn)}
-    .stat{margin-top:10px;opacity:0;transition:opacity .4s ease}
-    .stat.loaded{opacity:1}
-    .stat b{display:block;font-size:20px}
-    .price-tag{margin-top:8px;font-weight:600;font-size:15px;color:var(--accent)}
-    .btn{display:inline-block;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:#0f1623;font-size:13px;text-align:center}
-    .btn:hover{border-color:var(--accent)}
-    .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto}
-    footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center}
-    .campaign-card{grid-column:1/-1;text-align:center}
-    .campaign-card .price{font-size:24px;font-weight:700;margin-top:10px}
-    .updated{color:var(--muted);font-size:12px;text-align:center;margin-top:10px}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Promotions — Pay</title>
+<style>
+  :root{
+    --bg:#0d1117;--card:#111827;--muted:#9aa4b2;--text:#e6edf3;--accent:#59c1ff;
+    --good:#22c55e;--warn:#f59e0b;--border:rgba(255,255,255,.08);
+    --limited-bg:rgba(245,158,11,.12);--active-bg:rgba(34,197,94,.12);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);color:var(--text);
+    font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:780px;margin:0 auto;padding:24px 16px 80px}
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(6px);
+    background:rgba(13,17,23,.75);border-bottom:1px solid var(--border)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:780px;
+    margin:0 auto;padding:10px 16px}
+  .brand{display:flex;gap:10px;align-items:center}
+  .logo{width:36px;height:36px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
+  .brand h1{font-size:16px;margin:0;letter-spacing:.2px}
+  .email{font-size:13px;color:var(--muted)} .email:hover{color:var(--text)}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:22px}
+  h2{margin:0 0 4px 0} .muted{color:var(--muted);font-size:13px}
+
+  form{display:grid;gap:16px;margin-top:8px}
+  label{font-size:14px}
+  input, select, textarea{
+    width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);
+    background:#0f1623;color:var(--text);font-size:14px;outline:none;
+  }
+  textarea{min-height:140px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:640px){.row{grid-template-columns:1fr}}
+
+  .statusline{display:flex;align-items:center;justify-content:space-between}
+  .pill{padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid var(--border)}
+  .active{background:var(--active-bg);color:#22c55e}
+  .limited{background:var(--limited-bg);color:#f59e0b}
+
+  .submit{display:flex;gap:10px;align-items:center}
+  .btn{display:inline-block;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+    background:#0f1623;font-size:14px;text-align:center;transition:all .2s}
+  .btn.primary{background:linear-gradient(135deg,#59c1ff,#8b5bff);border:none;color:#fff;font-weight:600;
+    box-shadow:0 0 15px rgba(89,193,255,.35)}
+  .btn.primary:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(89,193,255,.5)}
+  .btn:hover{border-color:var(--accent)}
+  .total{font-weight:700}
+
+  footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center}
+</style>
 </head>
 <body>
   <div class="nav">
     <div class="nav-inner">
-      <div class="brand"><div class="logo" aria-hidden="true"></div><h1>Promotions with @vmmatica</h1></div>
+      <div class="brand"><div class="logo" aria-hidden="true"></div><h1>Promotions — Pay</h1></div>
       <a class="email" href="mailto:vmmatica@gmail.com">vmmatica@gmail.com</a>
     </div>
   </div>
 
   <div class="wrap">
-    <!-- UPDATED HEADLINE -->
-    <div class="headline"><strong>300 million views</strong> across all platforms.</div>
+    <div class="card">
+      <h2>Checkout</h2>
+      <div class="muted">Pay securely with PayPal. You’ll be redirected to complete payment.</div>
 
-    <div class="grid">
-      <!-- @vmmatica -->
-      <article class="card">
-        <div class="row"><div class="handle">@vmmatica</div><div class="pill limited">Limited</div></div>
-        <div class="stat"><b id="followers-vmmatica">—</b><span class="muted">Followers</span></div>
-        <div class="price-tag">$20 per post</div>
-        <div class="btn-row">
-          <a class="btn" href="https://www.tiktok.com/@vmmatica" target="_blank" rel="noopener">Open TikTok</a>
-          <a class="btn" href="form.html?plan=vmmatica" rel="noopener">Book</a>
+      <!-- Visible form (collects info, then we post to PayPal) -->
+      <form id="ui-form">
+        <div class="row">
+          <div>
+            <label for="plan">Plan</label>
+            <select id="plan" required>
+              <option value="vmmatica" data-price="20" data-status="Limited">@vmmatica — $20 per post</option>
+              <option value="vpolariss" data-price="18" data-status="Active">@vpolariss — $18 per post</option>
+              <option value="vjubzzs"  data-price="15" data-status="Active">@vjubzzs — $15 per post</option>
+              <option value="campaign" data-price="45" data-status="Active">Campaign Mini (Best for Algorithm) — $45 per cycle</option>
+            </select>
+          </div>
+          <div>
+            <label for="qty" id="qty-label">Number of videos</label>
+            <input id="qty" type="number" min="1" value="1" required />
+          </div>
         </div>
-      </article>
 
-      <!-- @vpolariss -->
-      <article class="card">
-        <div class="row"><div class="handle">@vpolariss</div><div class="pill active">Active</div></div>
-        <div class="stat"><b id="followers-vpolariss">—</b><span class="muted">Followers</span></div>
-        <div class="price-tag">$18 per post</div>
-        <div class="btn-row">
-          <a class="btn" href="https://www.tiktok.com/@vpolariss" target="_blank" rel="noopener">Open TikTok</a>
-          <a class="btn" href="form.html?plan=vpolariss" rel="noopener">Book</a>
+        <div class="row">
+          <div>
+            <label for="email">Your email (receipt)</label>
+            <input id="email" type="email" placeholder="you@example.com" required />
+          </div>
+          <div>
+            <label for="name">Artist / Brand name</label>
+            <input id="name" type="text" placeholder="Your name or brand" required />
+          </div>
         </div>
-      </article>
 
-      <!-- @vjubzzs -->
-      <article class="card">
-        <div class="row"><div class="handle">@vjubzzs</div><div class="pill active">Active</div></div>
-        <div class="stat"><b id="followers-vjubzzs">—</b><span class="muted">Followers</span></div>
-        <div class="price-tag">$15 per post</div>
-        <div class="btn-row">
-          <a class="btn" href="https://www.tiktok.com/@vjubzzs" target="_blank" rel="noopener">Open TikTok</a>
-          <a class="btn" href="form.html?plan=vjubzzs" rel="noopener">Book</a>
+        <div>
+          <label for="brief">Creative Brief / Requirements</label>
+          <textarea id="brief" placeholder="Goals, audio link(s), deadlines, must-haves, talking points…"></textarea>
         </div>
-      </article>
 
-      <!-- CAMPAIGN -->
-      <article class="card campaign-card" style="min-height:160px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center">
-        <div class="handle" style="margin-bottom:4px">Campaign Mini (Best for Algorithm)</div>
-        <div class="muted" style="margin-bottom:8px">1 post on each account · 18% off</div>
-        <div class="price">$45 total</div>
-        <a class="btn" style="margin-top:14px" href="form.html?plan=campaign" rel="noopener">Book Campaign Mini</a>
-      </article>
+        <div class="statusline">
+          <span class="pill" id="statusPill">Status: Active</span>
+          <div><span class="muted">Total:</span> <span class="total" id="total">$20</span></div>
+        </div>
+
+        <div class="submit">
+          <button type="submit" class="btn primary">Pay with PayPal</button>
+          <a href="index.html" class="btn">Back</a>
+        </div>
+      </form>
+
+      <!-- Hidden PayPal form (classic POST to webscr) -->
+      <form id="paypal-form" method="post" action="https://www.paypal.com/cgi-bin/webscr" style="display:none">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="vmmatica@gmail.com">
+        <input type="hidden" name="item_name" id="pp_item_name" value="Promotion">
+        <input type="hidden" name="amount" id="pp_amount" value="20">
+        <input type="hidden" name="quantity" id="pp_qty" value="1">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="no_shipping" value="1">
+        <input type="hidden" name="rm" value="2">
+        <input type="hidden" name="return" value="https://baconartist.github.io/thanks.html">
+        <input type="hidden" name="cancel_return" value="https://baconartist.github.io/form.html?cancel=1">
+        <!-- Pass lightweight metadata to appear in the transaction (seller view) -->
+        <input type="hidden" name="custom" id="pp_custom" value="">
+      </form>
     </div>
 
-    <div class="updated" id="last-updated">Last updated: —</div>
     <footer>© <span id="year"></span> Promotions with @vmmatica</footer>
   </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    const DATA_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTjBhQmisrzSUVqP1YeTfdX2Ia5fztU66ws7lmbkbWTvdQhRnQ_QZgWaNOlqUuYMS9ALHi9V8pn73pH/pub?output=csv';
-    const HANDLES = ['vmmatica','vpolariss','vjubzzs'];
+  const prices   = { vmmatica:20, vpolariss:18, vjubzzs:15, campaign:45 };
+  const statuses = { vmmatica:'Limited', vpolariss:'Active', vjubzzs:'Active', campaign:'Active' };
 
-    function formatNumber(n){const x=Number(n);if(!isFinite(x))return '—';if(x>=1e6)return (x/1e6).toFixed(1).replace(/\.0$/,'')+'M';if(x>=1e3)return (x/1e3).toFixed(1).replace(/\.0$/,'')+'k';return String(x);}
-    function parseCSV(text){const rows=text.trim().split(/\r?\n/);rows.shift();const data={};for(const row of rows){const [h,f]=row.split(',');if(!h||!f)continue;const key=h.trim().replace(/^@/,'');const num=Number(String(f).replace(/[^0-9.]/g,''));if(Number.isFinite(num))data[key]=num;}return data;}
+  const qs = new URLSearchParams(location.search);
+  const planSelect = document.getElementById('plan');
+  const qtyInput   = document.getElementById('qty');
+  const emailInput = document.getElementById('email');
+  const nameInput  = document.getElementById('name');
+  const briefInput = document.getElementById('brief');
 
-    async function loadFollowers(){
-      try{
-        const res=await fetch(DATA_URL+'&_='+Date.now());
-        if(!res.ok) throw new Error('Network error '+res.status);
-        const csv=await res.text(); const data=parseCSV(csv);
-        HANDLES.forEach(h=>{const el=document.getElementById('followers-'+h);if(el){el.textContent=formatNumber(data[h]);el.parentElement.classList.add('loaded');}});
-        document.getElementById('last-updated').textContent='Last updated: '+new Date().toLocaleString();
-      }catch(e){console.error('Error loading followers:',e);}
-    }
-    loadFollowers();
-  </script>
+  const totalEl    = document.getElementById('total');
+  const statusPill = document.getElementById('statusPill');
+  const qtyLabel   = document.getElementById('qty-label');
+
+  // Preselect plan from ?plan=
+  const initialPlan = qs.get('plan');
+  if (initialPlan && prices[initialPlan]) planSelect.value = initialPlan;
+
+  function updateLabels(){
+    const p = planSelect.value;
+    qtyLabel.textContent = (p === 'campaign') ? 'Number of campaign cycles' : 'Number of videos';
+  }
+  function updateStatus(){
+    const st = statuses[planSelect.value] || 'Active';
+    statusPill.textContent = `Status: ${st}`;
+    statusPill.className = 'pill ' + (st === 'Limited' ? 'limited' : 'active');
+  }
+  function updateTotal(){
+    const price = prices[planSelect.value] || 0;
+    const qty = Math.max(1, Number(qtyInput.value || 1));
+    const total = price * qty;
+    totalEl.textContent = `$${total.toLocaleString()}`;
+  }
+
+  planSelect.addEventListener('change', ()=>{ updateLabels(); updateStatus(); updateTotal(); });
+  qtyInput.addEventListener('input', updateTotal);
+
+  updateLabels(); updateStatus(); updateTotal();
+
+  // Submit visible form -> fill hidden PayPal form and POST
+  document.getElementById('ui-form').addEventListener('submit', (e)=>{
+    e.preventDefault();
+
+    const plan = planSelect.value;
+    const price = prices[plan] || 0;
+    const qty = Math.max(1, Number(qtyInput.value || 1));
+    const total = price * qty;
+
+    // Build item name and custom notes
+    const itemName =
+      plan === 'campaign'
+        ? `Campaign Mini (Best for Algorithm) — ${qty} cycle(s)`
+        : `@${plan} — ${qty} video(s)`;
+    const custom = [
+      `Client: ${nameInput.value || '(N/A)'}`,
+      `Email: ${emailInput.value || '(N/A)'}`,
+      `Plan: ${plan}`,
+      `Qty: ${qty}`,
+      `Brief: ${briefInput.value || '(N/A)'}`
+    ].join(' | ').slice(0, 255); // PayPal custom field max length
+
+    // Set hidden PayPal fields
+    document.getElementById('pp_item_name').value = itemName;
+    document.getElementById('pp_amount').value = price.toFixed(2);
+    document.getElementById('pp_qty').value = qty;
+    document.getElementById('pp_custom').value = custom;
+
+    // Submit to PayPal
+    document.getElementById('paypal-form').submit();
+  });
+</script>
 </body>
 </html>
