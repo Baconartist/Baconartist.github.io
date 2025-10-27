@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Promotions — Booking</title>
+<style>
+  :root{
+    --bg:#0d1117;--card:#111827;--muted:#9aa4b2;--text:#e6edf3;--accent:#59c1ff;
+    --good:#22c55e;--warn:#f59e0b;--border:rgba(255,255,255,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);color:var(--text);
+    font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:780px;margin:0 auto;padding:24px 16px 80px}
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(6px);
+    background:rgba(13,17,23,.75);border-bottom:1px solid var(--border)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:780px;
+    margin:0 auto;padding:10px 16px}
+  .brand{display:flex;gap:10px;align-items:center}
+  .logo{width:36px;height:36px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
+  .brand h1{font-size:16px;margin:0;letter-spacing:.2px}
+  .email{font-size:13px;color:var(--muted)}
+  .email:hover{color:var(--text)}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:22px}
+  h2{margin:0 0 4px 0}
+  .muted{color:var(--muted);font-size:13px}
+
+  form{display:grid;gap:16px;margin-top:8px}
+  label{font-size:14px}
+  input, select, textarea{
+    width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);
+    background:#0f1623;color:var(--text);font-size:14px;outline:none;
+  }
+  textarea{min-height:140px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:640px){.row{grid-template-columns:1fr}}
+
+  .price{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+  .pill{padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid var(--border)}
+  .active{background:rgba(34,197,94,.12);color:#22c55e}
+
+  .submit{display:flex;gap:10px;align-items:center}
+  .btn{display:inline-block;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+    background:#0f1623;font-size:14px;text-align:center}
+  .btn.primary{background:#0c1626;border-color:#1e3a8a}
+  .btn:hover{border-color:var(--accent)}
+  .total{font-weight:700}
+
+  footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand"><div class="logo" aria-hidden="true"></div><h1>Promotions — Booking</h1></div>
+      <a class="email" href="mailto:vmmatica@gmail.com">vmmatica@gmail.com</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <h2>Contact Form</h2>
+      <div class="muted">Fill this out and it will open an email to <b>vmmatica@gmail.com</b> with your details.</div>
+
+      <form id="form">
+        <div class="row">
+          <div>
+            <label for="plan">Plan</label>
+            <select id="plan" name="plan">
+              <option value="vmmatica" data-price="20">@vmmatica — $20 per post</option>
+              <option value="vpolariss" data-price="18">@vpolariss — $18 per post</option>
+              <option value="vjubzzs" data-price="15">@vjubzzs — $15 per post</option>
+              <option value="campaign" data-price="45">Campaign Mini — $45 per cycle (1 post on each account)</option>
+            </select>
+          </div>
+          <div>
+            <label for="qty" id="qty-label">Number of videos</label>
+            <input id="qty" name="quantity" type="number" min="1" value="1" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="email">Your email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required />
+          </div>
+          <div>
+            <label for="name">Artist / Brand name</label>
+            <input id="name" name="name" type="text" placeholder="Your name or brand" required />
+          </div>
+        </div>
+
+        <div>
+          <label for="brief">Creative Brief / Requirements</label>
+          <textarea id="brief" name="brief" placeholder="Goals, links to audio, deadlines, must-haves, talking points…"></textarea>
+        </div>
+
+        <div class="price">
+          <span class="pill active">Status: Active</span>
+          <div><span class="muted">Estimated total:</span> <span class="total" id="total">$20</span></div>
+        </div>
+
+        <div class="submit">
+          <button type="submit" class="btn primary">Open Email Draft</button>
+          <a href="index.html" class="btn">Back</a>
+        </div>
+      </form>
+    </div>
+
+    <footer>© <span id="year"></span> Promotions with @vmmatica</footer>
+  </div>
+
+<script>
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Plan → price map
+  const prices = { vmmatica:20, vpolariss:18, vjubzzs:15, campaign:45 };
+
+  const qs = new URLSearchParams(location.search);
+  const planSelect = document.getElementById('plan');
+  const qtyInput = document.getElementById('qty');
+  const totalEl = document.getElementById('total');
+  const qtyLabel = document.getElementById('qty-label');
+
+  // Preselect plan from ?plan=
+  const initialPlan = qs.get('plan');
+  if (initialPlan && prices[initialPlan]) {
+    planSelect.value = initialPlan;
+  }
+
+  function updateLabels(){
+    const plan = planSelect.value;
+    qtyLabel.textContent = (plan === 'campaign') ? 'Number of campaign cycles' : 'Number of videos';
+  }
+
+  function updateTotal(){
+    const plan = planSelect.value;
+    const qty = Math.max(1, Number(qtyInput.value || 1));
+    const price = prices[plan] || 0;
+    const total = qty * price;
+    totalEl.textContent = `$${total.toLocaleString()}`;
+  }
+
+  planSelect.addEventListener('change', ()=>{ updateLabels(); updateTotal(); });
+  qtyInput.addEventListener('input', updateTotal);
+
+  updateLabels();
+  updateTotal();
+
+  // Submit → open mailto with structured body
+  document.getElementById('form').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const plan = planSelect.value;
+    const qty = Math.max(1, Number(qtyInput.value || 1));
+    const email = document.getElementById('email').value.trim();
+    const name  = document.getElementById('name').value.trim();
+    const brief = document.getElementById('brief').value.trim();
+
+    const subject = `Promo Booking — ${plan === 'campaign' ? 'Campaign Mini' : '@' + plan}`;
+    const lines = [
+      `Plan: ${plan === 'campaign' ? 'Campaign Mini (1 post per account)' : '@' + plan}`,
+      `Quantity: ${qty} ${plan === 'campaign' ? 'cycle(s)' : 'video(s)'}`,
+      `Estimated total: $${(qty * prices[plan]).toLocaleString()}`,
+      `Artist/Brand: ${name}`,
+      `Contact email: ${email}`,
+      ``,
+      `Creative Brief / Requirements:`,
+      brief || '(provided in follow-up)'
+    ];
+    const body = encodeURIComponent(lines.join('\n'));
+    const mailto = `mailto:vmmatica@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    window.location.href = mailto;
+  });
+</script>
+</body>
+</html>
