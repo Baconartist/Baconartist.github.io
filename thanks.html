@@ -3,26 +3,121 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Request sent — Promotions</title>
+<title>Purchase Confirmed — Promotions</title>
 <style>
   :root{--bg:#0d1117;--card:#111827;--text:#e6edf3;--muted:#9aa4b2;--accent:#59c1ff;--border:rgba(255,255,255,.08)}
   *{box-sizing:border-box}
   body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);color:var(--text);
        font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-  .wrap{max-width:680px;margin:0 auto;padding:48px 16px}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center}
-  h1{margin:0 0 8px 0} .muted{color:var(--muted)}
-  a.btn{display:inline-block;margin-top:18px;padding:12px 16px;border-radius:12px;
-        background:linear-gradient(135deg,#59c1ff,#8b5bff);color:#fff;font-weight:600;text-decoration:none}
+  .wrap{max-width:780px;margin:0 auto;padding:32px 16px 80px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px}
+  .center{text-align:center}
+  h1{margin:10px 0 6px 0}
+  .muted{color:var(--muted)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  @media (max-width:640px){.row{grid-template-columns:1fr}}
+  .field{background:#0f1623;border:1px solid var(--border);border-radius:12px;padding:12px}
+  .label{font-size:12px;color:var(--muted);margin-bottom:2px}
+  .value{font-weight:600}
+  .btns{display:flex;gap:12px;justify-content:center;margin-top:22px}
+  .btn{display:inline-block;padding:12px 16px;border-radius:12px;border:1px solid var(--border);text-decoration:none;background:#0f1623}
+  .btn.primary{background:linear-gradient(135deg,#59c1ff,#8b5bff);border:none;color:#fff;font-weight:600}
+  .check{width:56px;height:56px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+         background:linear-gradient(135deg,#59c1ff,#8b5bff);color:#0d1117;margin:4px auto}
+  .check svg{width:28px;height:28px}
 </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
-      <h1>Thanks — your request was sent ✅</h1>
-      <p class="muted">We’ll get back to you at the email you provided. If you need to add anything else, reply to the confirmation email.</p>
-      <a class="btn" href="index.html">Back to promotions</a>
+      <div class="center">
+        <div class="check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.6-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z"/></svg>
+        </div>
+        <h1>Payment received</h1>
+        <div class="muted">Thanks — your purchase was completed.</div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <div class="label">Plan</div>
+          <div class="value" id="plan">—</div>
+        </div>
+        <div class="field">
+          <div class="label">Quantity</div>
+          <div class="value" id="qty">—</div>
+        </div>
+        <div class="field">
+          <div class="label">Estimated paid</div>
+          <div class="value" id="paid">—</div>
+        </div>
+        <div class="field">
+          <div class="label">Buyer email</div>
+          <div class="value" id="email">—</div>
+        </div>
+        <div class="field">
+          <div class="label">Notes</div>
+          <div class="value" id="brief">—</div>
+        </div>
+        <div class="field">
+          <div class="label">Transaction ID</div>
+          <div class="value" id="tx">—</div>
+        </div>
+        <div class="field">
+          <div class="label">Status</div>
+          <div class="value" id="st">—</div>
+        </div>
+      </div>
+
+      <div class="btns">
+        <a class="btn" href="index.html">Back to promotions</a>
+        <a class="btn primary" href="mailto:vmmatica@gmail.com?subject=Promo%20Order%20Support">Email support</a>
+      </div>
     </div>
   </div>
+
+<script>
+  // Try to load details from localStorage (we set this just before redirecting to PayPal)
+  const saved = (() => {
+    try { return JSON.parse(localStorage.getItem('lastOrder') || '{}'); } catch { return {}; }
+  })();
+
+  // Also read whatever PayPal appended as query params (rm=1)
+  const qs = new URLSearchParams(location.search);
+  const byQS = {
+    tx: qs.get('tx') || qs.get('token') || '',
+    st: qs.get('st') || '',
+    amt: qs.get('amt') || '',    // amount (may be present)
+    cc: qs.get('cc')  || 'USD',  // currency code
+  };
+
+  const mapPlanLabel = p => {
+    if (p === 'campaign') return 'Campaign Mini (Best for Algorithm)';
+    if (p) return '@' + p;
+    return '—';
+    };
+
+  // Pick best available sources
+  const plan = mapPlanLabel(saved.plan);
+  const qty  = saved.qty || 1;
+  const price= saved.price || 0;
+  // Prefer amt from PayPal, else compute
+  const paid = byQS.amt ? `${byQS.cc || 'USD'} $${Number(byQS.amt).toLocaleString()}` :
+                          `USD $${(price * qty).toLocaleString()}`;
+  const email = saved.email || '—';
+  const brief = saved.brief || '(none provided)';
+
+  // Fill UI
+  document.getElementById('plan').textContent = plan;
+  document.getElementById('qty').textContent  = qty;
+  document.getElementById('paid').textContent = paid;
+  document.getElementById('email').textContent= email;
+  document.getElementById('brief').textContent= brief;
+  document.getElementById('tx').textContent   = byQS.tx || '—';
+  document.getElementById('st').textContent   = byQS.st || 'Completed';
+
+  // (Optional) clear the saved order after showing it once
+  // localStorage.removeItem('lastOrder');
+</script>
 </body>
 </html>
