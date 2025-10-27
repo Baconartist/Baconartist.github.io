@@ -46,8 +46,13 @@
 
   .submit{display:flex;gap:10px;align-items:center}
   .btn{display:inline-block;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
-    background:#0f1623;font-size:14px;text-align:center}
-  .btn.primary{background:#0c1626;border-color:#1e3a8a}
+    background:#0f1623;font-size:14px;text-align:center;transition:all 0.2s ease}
+  .btn.primary{
+    background:linear-gradient(135deg,#59c1ff,#8b5bff);
+    border:none;color:white;font-weight:600;
+    box-shadow:0 0 15px rgba(89,193,255,0.35);
+  }
+  .btn.primary:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(89,193,255,0.5);}
   .btn:hover{border-color:var(--accent)}
   .total{font-weight:700}
 
@@ -67,14 +72,11 @@
       <h2>Contact Form</h2>
       <div class="muted">This will send a detailed request to <b>vmmatica@gmail.com</b>.</div>
 
-      <!-- FormSubmit sends straight to your inbox -->
       <form id="form" method="POST" action="https://formsubmit.co/vmmatica@gmail.com">
-        <!-- FormSubmit options -->
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="index.html#thanks">
         <input type="hidden" name="_subject" id="subjectInput" value="Promo Booking">
-        <!-- useful metadata -->
         <input type="hidden" name="status" id="statusField" value="Active">
         <input type="hidden" name="price_per_unit" id="ppuField" value="20">
         <input type="hidden" name="estimated_total" id="totalField" value="20">
@@ -143,11 +145,8 @@
   const subjectInp = document.getElementById('subjectInput');
   const qtyLabel   = document.getElementById('qty-label');
 
-  // Preselect from ?plan=
   const initialPlan = qs.get('plan');
-  if (initialPlan && prices[initialPlan]) {
-    planSelect.value = initialPlan;
-  }
+  if (initialPlan && prices[initialPlan]) planSelect.value = initialPlan;
 
   function updateLabels(){
     const plan = planSelect.value;
@@ -176,7 +175,6 @@
   planSelect.addEventListener('change', ()=>{ updateLabels(); updateStatus(); updateTotals(); });
   qtyInput.addEventListener('input', updateTotals);
 
-  // init
   updateLabels(); updateStatus(); updateTotals();
 </script>
 </body>
