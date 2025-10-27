@@ -5,57 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Promotions — Booking</title>
 <style>
-  :root{
-    --bg:#0d1117;--card:#111827;--muted:#9aa4b2;--text:#e6edf3;--accent:#59c1ff;
-    --good:#22c55e;--warn:#f59e0b;--border:rgba(255,255,255,.08);
-    --limited-bg:rgba(245,158,11,.12);--active-bg:rgba(34,197,94,.12);
-  }
+  :root{--bg:#0d1117;--card:#111827;--muted:#9aa4b2;--text:#e6edf3;--accent:#59c1ff;
+        --good:#22c55e;--warn:#f59e0b;--border:rgba(255,255,255,.08);
+        --limited-bg:rgba(245,158,11,.12);--active-bg:rgba(34,197,94,.12);}
   *{box-sizing:border-box}
   body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);color:var(--text);
-    font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+       font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:780px;margin:0 auto;padding:24px 16px 80px}
   .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(6px);
-    background:rgba(13,17,23,.75);border-bottom:1px solid var(--border)}
+       background:rgba(13,17,23,.75);border-bottom:1px solid var(--border)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:780px;
-    margin:0 auto;padding:10px 16px}
+             margin:0 auto;padding:10px 16px}
   .brand{display:flex;gap:10px;align-items:center}
-  .logo{width:36px;height:36px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
+  .logo{width:36px;height:36px;border-radius:10px;
+        background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
   .brand h1{font-size:16px;margin:0;letter-spacing:.2px}
-  .email{font-size:13px;color:var(--muted)}
-  .email:hover{color:var(--text)}
+  .email{font-size:13px;color:var(--muted)} .email:hover{color:var(--text)}
 
   .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:22px}
-  h2{margin:0 0 4px 0}
-  .muted{color:var(--muted);font-size:13px}
-
-  form{display:grid;gap:16px;margin-top:8px}
-  label{font-size:14px}
-  input, select, textarea{
-    width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);
-    background:#0f1623;color:var(--text);font-size:14px;outline:none;
-  }
+  h2{margin:0 0 4px 0} .muted{color:var(--muted);font-size:13px}
+  form{display:grid;gap:16px;margin-top:8px} label{font-size:14px}
+  input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);
+                        background:#0f1623;color:var(--text);font-size:14px;outline:none}
   textarea{min-height:140px;resize:vertical}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media (max-width:640px){.row{grid-template-columns:1fr}}
-
   .statusline{display:flex;align-items:center;justify-content:space-between}
   .pill{padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid var(--border)}
-  .active{background:var(--active-bg);color:#22c55e}
-  .limited{background:var(--limited-bg);color:#f59e0b}
-
+  .active{background:rgba(34,197,94,.12);color:#22c55e}
+  .limited{background:rgba(245,158,11,.12);color:#f59e0b}
   .submit{display:flex;gap:10px;align-items:center}
   .btn{display:inline-block;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
-    background:#0f1623;font-size:14px;text-align:center;transition:all 0.2s ease}
-  .btn.primary{
-    background:linear-gradient(135deg,#59c1ff,#8b5bff);
-    border:none;color:white;font-weight:600;
-    box-shadow:0 0 15px rgba(89,193,255,0.35);
-  }
-  .btn.primary:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(89,193,255,0.5);}
-  .btn:hover{border-color:var(--accent)}
-  .total{font-weight:700}
-
+       background:#0f1623;font-size:14px;text-align:center;transition:all .2s}
+  .btn.primary{background:linear-gradient(135deg,#59c1ff,#8b5bff);border:none;color:#fff;font-weight:600;
+               box-shadow:0 0 15px rgba(89,193,255,.35)}
+  .btn.primary:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(89,193,255,.5)}
+  .btn:hover{border-color:var(--accent)} .total{font-weight:700}
   footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center}
 </style>
 </head>
@@ -72,10 +58,11 @@
       <h2>Contact Form</h2>
       <div class="muted">This will send a detailed request to <b>vmmatica@gmail.com</b>.</div>
 
+      <!-- IMPORTANT: absolute _next url fixes redirect -->
       <form id="form" method="POST" action="https://formsubmit.co/vmmatica@gmail.com">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="index.html#thanks">
+        <input type="hidden" name="_next" value="https://baconartist.github.io/thanks.html">
         <input type="hidden" name="_subject" id="subjectInput" value="Promo Booking">
         <input type="hidden" name="status" id="statusField" value="Active">
         <input type="hidden" name="price_per_unit" id="ppuField" value="20">
@@ -87,7 +74,7 @@
             <select id="plan" name="plan" required>
               <option value="vmmatica" data-price="20" data-status="Limited">@vmmatica — $20 per post</option>
               <option value="vpolariss" data-price="18" data-status="Active">@vpolariss — $18 per post</option>
-              <option value="vjubzzs" data-price="15" data-status="Active">@vjubzzs — $15 per post</option>
+              <option value="vjubzzs"  data-price="15" data-status="Active">@vjubzzs — $15 per post</option>
               <option value="campaign" data-price="45" data-status="Active">Campaign Mini (Best for Algorithm) — $45 per cycle</option>
             </select>
           </div>
@@ -131,7 +118,7 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  const prices = { vmmatica:20, vpolariss:18, vjubzzs:15, campaign:45 };
+  const prices   = { vmmatica:20, vpolariss:18, vjubzzs:15, campaign:45 };
   const statuses = { vmmatica:'Limited', vpolariss:'Active', vjubzzs:'Active', campaign:'Active' };
 
   const qs = new URLSearchParams(location.search);
@@ -152,7 +139,6 @@
     const plan = planSelect.value;
     qtyLabel.textContent = (plan === 'campaign') ? 'Number of campaign cycles' : 'Number of videos';
   }
-
   function updateStatus(){
     const plan = planSelect.value;
     const st = statuses[plan] || 'Active';
@@ -160,16 +146,15 @@
     statusPill.textContent = `Status: ${st}`;
     statusPill.className = 'pill ' + (st === 'Limited' ? 'limited' : 'active');
   }
-
   function updateTotals(){
     const plan = planSelect.value;
     const qty  = Math.max(1, Number(qtyInput.value || 1));
     const ppu  = prices[plan] || 0;
     const ttl  = qty * ppu;
-    totalEl.textContent   = `$${ttl.toLocaleString()}`;
-    totalField.value      = ttl;
-    ppuField.value        = ppu;
-    subjectInp.value      = `Promo Booking — ${plan === 'campaign' ? 'Campaign Mini (Best for Algorithm)' : '@' + plan} — ${qty} ${plan === 'campaign' ? 'cycle(s)' : 'video(s)'}`;
+    totalEl.textContent = `$${ttl.toLocaleString()}`;
+    totalField.value = ttl;
+    ppuField.value   = ppu;
+    subjectInp.value = `Promo Booking — ${plan === 'campaign' ? 'Campaign Mini (Best for Algorithm)' : '@' + plan} — ${qty} ${plan === 'campaign' ? 'cycle(s)' : 'video(s)'}`;
   }
 
   planSelect.addEventListener('change', ()=>{ updateLabels(); updateStatus(); updateTotals(); });
