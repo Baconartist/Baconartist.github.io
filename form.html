@@ -3,75 +3,76 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Promotions — Booking</title>
+<title>Promotions — Pay</title>
 <style>
-  :root{--bg:#0d1117;--card:#111827;--muted:#9aa4b2;--text:#e6edf3;--accent:#59c1ff;
-        --good:#22c55e;--warn:#f59e0b;--border:rgba(255,255,255,.08);
-        --limited-bg:rgba(245,158,11,.12);--active-bg:rgba(34,197,94,.12);}
+  :root{
+    --bg:#0d1117;--card:#111827;--muted:#9aa4b2;--text:#e6edf3;--accent:#59c1ff;
+    --good:#22c55e;--warn:#f59e0b;--border:rgba(255,255,255,.08);
+    --limited-bg:rgba(245,158,11,.12);--active-bg:rgba(34,197,94,.12);
+  }
   *{box-sizing:border-box}
   body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);color:var(--text);
-       font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:780px;margin:0 auto;padding:24px 16px 80px}
   .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(6px);
-       background:rgba(13,17,23,.75);border-bottom:1px solid var(--border)}
+    background:rgba(13,17,23,.75);border-bottom:1px solid var(--border)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:780px;
-             margin:0 auto;padding:10px 16px}
+    margin:0 auto;padding:10px 16px}
   .brand{display:flex;gap:10px;align-items:center}
-  .logo{width:36px;height:36px;border-radius:10px;
-        background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
+  .logo{width:36px;height:36px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
   .brand h1{font-size:16px;margin:0;letter-spacing:.2px}
   .email{font-size:13px;color:var(--muted)} .email:hover{color:var(--text)}
 
   .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:22px}
   h2{margin:0 0 4px 0} .muted{color:var(--muted);font-size:13px}
-  form{display:grid;gap:16px;margin-top:8px} label{font-size:14px}
-  input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);
-                        background:#0f1623;color:var(--text);font-size:14px;outline:none}
+
+  form{display:grid;gap:16px;margin-top:8px}
+  label{font-size:14px}
+  input, select, textarea{
+    width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);
+    background:#0f1623;color:var(--text);font-size:14px;outline:none;
+  }
   textarea{min-height:140px;resize:vertical}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media (max-width:640px){.row{grid-template-columns:1fr}}
+
   .statusline{display:flex;align-items:center;justify-content:space-between}
   .pill{padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid var(--border)}
-  .active{background:rgba(34,197,94,.12);color:#22c55e}
-  .limited{background:rgba(245,158,11,.12);color:#f59e0b}
+  .active{background:var(--active-bg);color:#22c55e}
+  .limited{background:var(--limited-bg);color:#f59e0b}
+
   .submit{display:flex;gap:10px;align-items:center}
   .btn{display:inline-block;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
-       background:#0f1623;font-size:14px;text-align:center;transition:all .2s}
+    background:#0f1623;font-size:14px;text-align:center;transition:all .2s}
   .btn.primary{background:linear-gradient(135deg,#59c1ff,#8b5bff);border:none;color:#fff;font-weight:600;
-               box-shadow:0 0 15px rgba(89,193,255,.35)}
+    box-shadow:0 0 15px rgba(89,193,255,.35)}
   .btn.primary:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(89,193,255,.5)}
-  .btn:hover{border-color:var(--accent)} .total{font-weight:700}
+  .btn:hover{border-color:var(--accent)}
+  .total{font-weight:700}
+
   footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center}
 </style>
 </head>
 <body>
   <div class="nav">
     <div class="nav-inner">
-      <div class="brand"><div class="logo" aria-hidden="true"></div><h1>Promotions — Booking</h1></div>
+      <div class="brand"><div class="logo" aria-hidden="true"></div><h1>Promotions — Pay</h1></div>
       <a class="email" href="mailto:vmmatica@gmail.com">vmmatica@gmail.com</a>
     </div>
   </div>
 
   <div class="wrap">
     <div class="card">
-      <h2>Contact Form</h2>
-      <div class="muted">This will send a detailed request to <b>vmmatica@gmail.com</b>.</div>
+      <h2>Checkout</h2>
+      <div class="muted">Pay securely with PayPal. You’ll be redirected to complete payment.</div>
 
-      <!-- IMPORTANT: absolute _next url fixes redirect -->
-      <form id="form" method="POST" action="https://formsubmit.co/vmmatica@gmail.com">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://baconartist.github.io/thanks.html">
-        <input type="hidden" name="_subject" id="subjectInput" value="Promo Booking">
-        <input type="hidden" name="status" id="statusField" value="Active">
-        <input type="hidden" name="price_per_unit" id="ppuField" value="20">
-        <input type="hidden" name="estimated_total" id="totalField" value="20">
-
+      <!-- Visible form (collects info, then we post to PayPal) -->
+      <form id="ui-form">
         <div class="row">
           <div>
             <label for="plan">Plan</label>
-            <select id="plan" name="plan" required>
+            <select id="plan" required>
               <option value="vmmatica" data-price="20" data-status="Limited">@vmmatica — $20 per post</option>
               <option value="vpolariss" data-price="18" data-status="Active">@vpolariss — $18 per post</option>
               <option value="vjubzzs"  data-price="15" data-status="Active">@vjubzzs — $15 per post</option>
@@ -80,35 +81,52 @@
           </div>
           <div>
             <label for="qty" id="qty-label">Number of videos</label>
-            <input id="qty" name="quantity" type="number" min="1" value="1" required />
+            <input id="qty" type="number" min="1" value="1" required />
           </div>
         </div>
 
         <div class="row">
           <div>
-            <label for="email">Your email</label>
-            <input id="email" name="client_email" type="email" placeholder="you@example.com" required />
+            <label for="email">Your email (receipt)</label>
+            <input id="email" type="email" placeholder="you@example.com" required />
           </div>
           <div>
             <label for="name">Artist / Brand name</label>
-            <input id="name" name="client_name" type="text" placeholder="Your name or brand" required />
+            <input id="name" type="text" placeholder="Your name or brand" required />
           </div>
         </div>
 
         <div>
           <label for="brief">Creative Brief / Requirements</label>
-          <textarea id="brief" name="creative_brief" placeholder="Goals, audio link(s), deadlines, must-haves, talking points…"></textarea>
+          <textarea id="brief" placeholder="Goals, audio link(s), deadlines, must-haves, talking points…"></textarea>
         </div>
 
         <div class="statusline">
           <span class="pill" id="statusPill">Status: Active</span>
-          <div><span class="muted">Estimated total:</span> <span class="total" id="total">$20</span></div>
+          <div><span class="muted">Total:</span> <span class="total" id="total">$20</span></div>
         </div>
 
         <div class="submit">
-          <button type="submit" class="btn primary">Send Request</button>
+          <button type="submit" class="btn primary">Pay with PayPal</button>
           <a href="index.html" class="btn">Back</a>
         </div>
+      </form>
+
+      <!-- Hidden PayPal form (classic POST to webscr) -->
+      <form id="paypal-form" method="post" action="https://www.paypal.com/cgi-bin/webscr" style="display:none">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="vmmatica@gmail.com">
+        <input type="hidden" name="item_name" id="pp_item_name" value="Promotion">
+        <input type="hidden" name="amount" id="pp_amount" value="20">
+        <input type="hidden" name="quantity" id="pp_qty" value="1">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="no_shipping" value="1">
+        <!-- rm=1 => GET redirect (lets thanks.html read query params) -->
+        <input type="hidden" name="rm" value="1">
+        <input type="hidden" name="return" value="https://baconartist.github.io/thanks.html">
+        <input type="hidden" name="cancel_return" value="https://baconartist.github.io/form.html?cancel=1">
+        <!-- Lightweight metadata for your dashboard -->
+        <input type="hidden" name="custom" id="pp_custom" value="">
       </form>
     </div>
 
@@ -124,43 +142,75 @@
   const qs = new URLSearchParams(location.search);
   const planSelect = document.getElementById('plan');
   const qtyInput   = document.getElementById('qty');
+  const emailInput = document.getElementById('email');
+  const nameInput  = document.getElementById('name');
+  const briefInput = document.getElementById('brief');
+
   const totalEl    = document.getElementById('total');
-  const totalField = document.getElementById('totalField');
-  const ppuField   = document.getElementById('ppuField');
-  const statusField= document.getElementById('statusField');
   const statusPill = document.getElementById('statusPill');
-  const subjectInp = document.getElementById('subjectInput');
   const qtyLabel   = document.getElementById('qty-label');
 
+  // Preselect plan from ?plan=
   const initialPlan = qs.get('plan');
   if (initialPlan && prices[initialPlan]) planSelect.value = initialPlan;
 
   function updateLabels(){
-    const plan = planSelect.value;
-    qtyLabel.textContent = (plan === 'campaign') ? 'Number of campaign cycles' : 'Number of videos';
+    const p = planSelect.value;
+    qtyLabel.textContent = (p === 'campaign') ? 'Number of campaign cycles' : 'Number of videos';
   }
   function updateStatus(){
-    const plan = planSelect.value;
-    const st = statuses[plan] || 'Active';
-    statusField.value = st;
+    const st = statuses[planSelect.value] || 'Active';
     statusPill.textContent = `Status: ${st}`;
     statusPill.className = 'pill ' + (st === 'Limited' ? 'limited' : 'active');
   }
-  function updateTotals(){
-    const plan = planSelect.value;
-    const qty  = Math.max(1, Number(qtyInput.value || 1));
-    const ppu  = prices[plan] || 0;
-    const ttl  = qty * ppu;
-    totalEl.textContent = `$${ttl.toLocaleString()}`;
-    totalField.value = ttl;
-    ppuField.value   = ppu;
-    subjectInp.value = `Promo Booking — ${plan === 'campaign' ? 'Campaign Mini (Best for Algorithm)' : '@' + plan} — ${qty} ${plan === 'campaign' ? 'cycle(s)' : 'video(s)'}`;
+  function updateTotal(){
+    const price = prices[planSelect.value] || 0;
+    const qty = Math.max(1, Number(qtyInput.value || 1));
+    const total = price * qty;
+    totalEl.textContent = `$${total.toLocaleString()}`;
   }
 
-  planSelect.addEventListener('change', ()=>{ updateLabels(); updateStatus(); updateTotals(); });
-  qtyInput.addEventListener('input', updateTotals);
+  planSelect.addEventListener('change', ()=>{ updateLabels(); updateStatus(); updateTotal(); });
+  qtyInput.addEventListener('input', updateTotal);
 
-  updateLabels(); updateStatus(); updateTotals();
+  updateLabels(); updateStatus(); updateTotal();
+
+  // Submit visible form -> fill hidden PayPal form and POST
+  document.getElementById('ui-form').addEventListener('submit', (e)=>{
+    e.preventDefault();
+
+    const plan  = planSelect.value;
+    const price = prices[plan] || 0;
+    const qty   = Math.max(1, Number(qtyInput.value || 1));
+
+    // Build item name and custom notes
+    const itemName =
+      plan === 'campaign'
+        ? `Campaign Mini (Best for Algorithm) — ${qty} cycle(s)`
+        : `@${plan} — ${qty} video(s)`;
+    const custom = [
+      `Client: ${nameInput.value || '(N/A)'}`,
+      `Email: ${emailInput.value || '(N/A)'}`,
+      `Plan: ${plan}`,
+      `Qty: ${qty}`,
+      `Brief: ${briefInput.value || '(N/A)'}`
+    ].join(' | ').slice(0, 255); // PayPal custom field max length
+
+    // Save for thanks.html (so we can show a nice receipt)
+    localStorage.setItem('lastOrder', JSON.stringify({
+      plan, qty, price,
+      email: emailInput.value || '',
+      brief: briefInput.value || ''
+    }));
+
+    // Set hidden PayPal fields and submit
+    document.getElementById('pp_item_name').value = itemName;
+    document.getElementById('pp_amount').value    = price.toFixed(2);
+    document.getElementById('pp_qty').value       = qty;
+    document.getElementById('pp_custom').value    = custom;
+
+    document.getElementById('paypal-form').submit();
+  });
 </script>
 </body>
 </html>
