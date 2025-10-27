@@ -26,6 +26,14 @@
     .email{font-size:13px;color:var(--muted)}
     .email:hover{color:var(--text)}
     .headline{text-align:center;margin-top:22px;font-size:17px;color:var(--muted)}
+    .headline strong{
+      font-size:22px;
+      background:linear-gradient(135deg,#59c1ff,#8b5bff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 0 10px rgba(137,150,255,.4);
+      font-weight:700;
+    }
     .grid{display:grid;grid-template-columns:repeat(3,minmax(260px,1fr));
           gap:18px;margin-top:24px;align-items:stretch}
     @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
@@ -59,7 +67,7 @@
   </div>
 
   <div class="wrap">
-    <div class="headline">300 million views across all platforms.</div>
+    <div class="headline"><strong>300 million</strong> views across all platforms.</div>
 
     <div class="grid">
       <!-- @vmmatica -->
@@ -119,7 +127,6 @@
       return String(x);
     }
 
-    // Load follower counts from Google Sheets CSV
     fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTjBhQmisrzSUVqP1YeTfdX2Ia5fztU66ws7lmbkbWTvdQhRnQ_QZgWaNOlqUuYMS9ALHi9V8pn73pH/pub?output=csv',{cache:'no-store'})
       .then(r=>r.text())
       .then(text=>{
