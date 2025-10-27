@@ -39,34 +39,13 @@
       </div>
 
       <div class="row">
-        <div class="field">
-          <div class="label">Plan</div>
-          <div class="value" id="plan">—</div>
-        </div>
-        <div class="field">
-          <div class="label">Quantity</div>
-          <div class="value" id="qty">—</div>
-        </div>
-        <div class="field">
-          <div class="label">Estimated paid</div>
-          <div class="value" id="paid">—</div>
-        </div>
-        <div class="field">
-          <div class="label">Buyer email</div>
-          <div class="value" id="email">—</div>
-        </div>
-        <div class="field">
-          <div class="label">Notes</div>
-          <div class="value" id="brief">—</div>
-        </div>
-        <div class="field">
-          <div class="label">Transaction ID</div>
-          <div class="value" id="tx">—</div>
-        </div>
-        <div class="field">
-          <div class="label">Status</div>
-          <div class="value" id="st">—</div>
-        </div>
+        <div class="field"><div class="label">Plan</div><div class="value" id="plan">—</div></div>
+        <div class="field"><div class="label">Quantity</div><div class="value" id="qty">—</div></div>
+        <div class="field"><div class="label">Estimated paid</div><div class="value" id="paid">—</div></div>
+        <div class="field"><div class="label">Buyer email</div><div class="value" id="email">—</div></div>
+        <div class="field"><div class="label">Notes</div><div class="value" id="brief">—</div></div>
+        <div class="field"><div class="label">Transaction ID</div><div class="value" id="tx">—</div></div>
+        <div class="field"><div class="label">Status</div><div class="value" id="st">—</div></div>
       </div>
 
       <div class="btns">
@@ -77,46 +56,30 @@
   </div>
 
 <script>
-  // Try to load details from localStorage (we set this just before redirecting to PayPal)
-  const saved = (() => {
-    try { return JSON.parse(localStorage.getItem('lastOrder') || '{}'); } catch { return {}; }
-  })();
-
-  // Also read whatever PayPal appended as query params (rm=1)
+  const saved = (() => { try { return JSON.parse(localStorage.getItem('lastOrder') || '{}'); } catch { return {}; } })();
   const qs = new URLSearchParams(location.search);
   const byQS = {
     tx: qs.get('tx') || qs.get('token') || '',
     st: qs.get('st') || '',
-    amt: qs.get('amt') || '',    // amount (may be present)
-    cc: qs.get('cc')  || 'USD',  // currency code
+    amt: qs.get('amt') || '',
+    cc: qs.get('cc')  || 'USD',
   };
+  const mapPlan = p => p === 'campaign' ? 'Campaign Mini (Best for Algorithm)' : (p ? '@'+p : '—');
 
-  const mapPlanLabel = p => {
-    if (p === 'campaign') return 'Campaign Mini (Best for Algorithm)';
-    if (p) return '@' + p;
-    return '—';
-    };
+  const plan  = mapPlan(saved.plan);
+  const qty   = saved.qty || 1;
+  const price = saved.price || 0;
+  const paid  = byQS.amt ? `${byQS.cc} $${Number(byQS.amt).toLocaleString()}` : `USD $${(price*qty).toLocaleString()}`;
 
-  // Pick best available sources
-  const plan = mapPlanLabel(saved.plan);
-  const qty  = saved.qty || 1;
-  const price= saved.price || 0;
-  // Prefer amt from PayPal, else compute
-  const paid = byQS.amt ? `${byQS.cc || 'USD'} $${Number(byQS.amt).toLocaleString()}` :
-                          `USD $${(price * qty).toLocaleString()}`;
-  const email = saved.email || '—';
-  const brief = saved.brief || '(none provided)';
+  document.getElementById('plan').textContent  = plan;
+  document.getElementById('qty').textContent   = qty;
+  document.getElementById('paid').textContent  = paid;
+  document.getElementById('email').textContent = saved.email || '—';
+  document.getElementById('brief').textContent = saved.brief || '(none provided)';
+  document.getElementById('tx').textContent    = byQS.tx || '—';
+  document.getElementById('st').textContent    = byQS.st || 'Completed';
 
-  // Fill UI
-  document.getElementById('plan').textContent = plan;
-  document.getElementById('qty').textContent  = qty;
-  document.getElementById('paid').textContent = paid;
-  document.getElementById('email').textContent= email;
-  document.getElementById('brief').textContent= brief;
-  document.getElementById('tx').textContent   = byQS.tx || '—';
-  document.getElementById('st').textContent   = byQS.st || 'Completed';
-
-  // (Optional) clear the saved order after showing it once
+  // Optional: clear receipt after showing
   // localStorage.removeItem('lastOrder');
 </script>
 </body>
