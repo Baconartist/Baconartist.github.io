@@ -5,68 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Purchase Confirmed — Promotions</title>
 <style>
-  :root{
-    --bg:#0d1117;--card:#111827;--text:#e6edf3;--muted:#9aa4b2;
-    --accent:#59c1ff;--border:rgba(255,255,255,.08)
-  }
+  :root{--bg:#0d1117;--card:#111827;--text:#e6edf3;--muted:#9aa4b2;--accent:#59c1ff;--border:rgba(255,255,255,.08)}
   *{box-sizing:border-box}
-  body{
-    margin:0;
-    background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);
-    color:var(--text);
-    font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  }
+  body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);color:var(--text);
+       font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
   .wrap{max-width:780px;margin:0 auto;padding:32px 16px 80px}
-  .card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:24px;
-  }
+  .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px}
   .center{text-align:center}
   h1{margin:10px 0 6px 0}
   .muted{color:var(--muted)}
-  .row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-top:16px;
-  }
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
   @media (max-width:640px){.row{grid-template-columns:1fr}}
-  .field{
-    background:#0f1623;
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:12px;
-  }
+  .field{background:#0f1623;border:1px solid var(--border);border-radius:12px;padding:12px}
   .label{font-size:12px;color:var(--muted);margin-bottom:2px}
   .value{font-weight:600}
   .btns{display:flex;gap:12px;justify-content:center;margin-top:22px}
-  .btn{
-    display:inline-block;
-    padding:12px 16px;
-    border-radius:12px;
-    border:1px solid var(--border);
-    text-decoration:none;
-    background:#0f1623;
-  }
-  .btn.primary{
-    background:linear-gradient(135deg,#59c1ff,#8b5bff);
-    border:none;color:#fff;font-weight:600
-  }
-  .check{
-    width:56px;height:56px;border-radius:50%;
-    display:inline-flex;align-items:center;justify-content:center;
-    background:linear-gradient(135deg,#59c1ff,#8b5bff);
-    color:#0d1117;margin:4px auto
-  }
+  .btn{display:inline-block;padding:12px 16px;border-radius:12px;border:1px solid var(--border);text-decoration:none;background:#0f1623}
+  .btn.primary{background:linear-gradient(135deg,#59c1ff,#8b5bff);border:none;color:#fff;font-weight:600}
+  .check{width:56px;height:56px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+         background:linear-gradient(135deg,#59c1ff,#8b5bff);color:#0d1117;margin:4px auto}
   .check svg{width:28px;height:28px}
-  .support{
-    text-align:center;
-    margin-top:28px;
-    color:var(--muted);
-    font-size:14px;
-  }
+  .support{text-align:center;margin-top:28px;color:var(--muted);font-size:14px}
   .support a{color:var(--accent);text-decoration:none}
   .support a:hover{text-decoration:underline}
 </style>
@@ -76,9 +35,7 @@
     <div class="card">
       <div class="center">
         <div class="check" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M9 16.2l-3.5-3.6-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2l-3.5-3.6-1.4 1.4L9 19 20.3 7.7l-1.4-1.4z"/></svg>
         </div>
         <h1>Payment received</h1>
         <div class="muted">Thanks — your purchase was completed.</div>
@@ -99,35 +56,67 @@
       </div>
 
       <div class="support">
-        Questions? Email support at
-        <a href="mailto:vmmatica@gmail.com">vmmatica@gmail.com</a>
+        Questions? Email support at <a href="mailto:vmmatica@gmail.com">vmmatica@gmail.com</a>
       </div>
     </div>
   </div>
 
+  <!-- Hidden auto-email form: posts once after PayPal success -->
+  <form id="emailForm" method="POST" action="https://formsubmit.co/vmmatica@gmail.com" style="display:none">
+    <input type="hidden" name="_subject" value="New Paid Promo — PayPal">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="plan"           id="f_plan">
+    <input type="hidden" name="quantity"       id="f_qty">
+    <input type="hidden" name="amount_paid"    id="f_amt">
+    <input type="hidden" name="currency"       id="f_cc">
+    <input type="hidden" name="buyer_email"    id="f_email">
+    <input type="hidden" name="artist_brand"   id="f_name">
+    <input type="hidden" name="creative_brief" id="f_brief">
+    <input type="hidden" name="source" value="paypal-return">
+  </form>
+
 <script>
-  const saved = (() => { 
-    try { return JSON.parse(localStorage.getItem('lastOrder') || '{}'); } 
-    catch { return {}; } 
-  })();
+  // Load saved order
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem('lastOrder') || '{}'); } catch(e){}
 
-  const qs = new URLSearchParams(location.search);
-  const byQS = {
-    amt: qs.get('amt') || '',
-    cc: qs.get('cc')  || 'USD',
-  };
+  // Read PayPal return params
+  const qs  = new URLSearchParams(location.search);
+  const amt = qs.get('amt');                 // present on success
+  const cc  = qs.get('cc') || 'USD';
 
+  // Fill visible receipt
   const mapPlan = p => p === 'campaign' ? 'Campaign Mini (Best for Algorithm)' : (p ? '@'+p : '—');
   const plan  = mapPlan(saved.plan);
   const qty   = saved.qty || 1;
   const price = saved.price || 0;
-  const paid  = byQS.amt ? `${byQS.cc} $${Number(byQS.amt).toLocaleString()}` : `USD $${(price*qty).toLocaleString()}`;
+  const paid  = amt ? `${cc} $${Number(amt).toLocaleString()}` : `USD $${(price*qty).toLocaleString()}`;
 
   document.getElementById('plan').textContent  = plan;
   document.getElementById('qty').textContent   = qty;
   document.getElementById('paid').textContent  = paid;
   document.getElementById('email').textContent = saved.email || '—';
   document.getElementById('brief').textContent = saved.brief || '(none provided)';
+
+  // Send an email ONCE when amt exists (prevents manual loads / refresh spam)
+  (function(){
+    if (!amt) return;
+    const key = `emailed:${plan}:${qty}:${amt}:${saved.email || ''}`;
+    if (localStorage.getItem(key)) return;
+
+    // Fill hidden email form
+    document.getElementById('f_plan').value  = plan;
+    document.getElementById('f_qty').value   = qty;
+    document.getElementById('f_amt').value   = amt;
+    document.getElementById('f_cc').value    = cc;
+    document.getElementById('f_email').value = saved.email || '';
+    document.getElementById('f_name').value  = saved.name  || '';
+    document.getElementById('f_brief').value = saved.brief || '';
+
+    localStorage.setItem(key, '1');
+    document.getElementById('emailForm').submit();
+  })();
 
   // Optional: clear after showing
   // localStorage.removeItem('lastOrder');
