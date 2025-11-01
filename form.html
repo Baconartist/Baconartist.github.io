@@ -23,10 +23,8 @@
   .logo{width:36px;height:36px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
   .brand h1{font-size:16px;margin:0;letter-spacing:.2px}
   .email{font-size:13px;color:var(--muted)} .email:hover{color:var(--text)}
-
   .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:22px}
   h2{margin:0 0 4px 0} .muted{color:var(--muted);font-size:13px}
-
   form{display:grid;gap:16px;margin-top:8px}
   label{font-size:14px}
   input, select, textarea{
@@ -36,12 +34,10 @@
   textarea{min-height:140px;resize:vertical}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media (max-width:640px){.row{grid-template-columns:1fr}}
-
   .statusline{display:flex;align-items:center;justify-content:space-between}
   .pill{padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid var(--border)}
   .active{background:var(--active-bg);color:#22c55e}
   .limited{background:var(--limited-bg);color:#f59e0b}
-
   .submit{display:flex;gap:10px;align-items:center}
   .btn{display:inline-block;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
     background:#0f1623;font-size:14px;text-align:center;transition:all .2s}
@@ -50,7 +46,6 @@
   .btn.primary:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(89,193,255,.5)}
   .btn:hover{border-color:var(--accent)}
   .total{font-weight:700}
-
   footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center}
 </style>
 </head>
@@ -67,7 +62,7 @@
       <h2>Checkout</h2>
       <div class="muted">Pay securely with PayPal. You’ll be redirected to complete payment.</div>
 
-      <!-- Visible form (collects info, then we post to PayPal) -->
+      <!-- Visible form -->
       <form id="ui-form">
         <div class="row">
           <div>
@@ -112,7 +107,7 @@
         </div>
       </form>
 
-      <!-- Hidden PayPal form (classic POST to webscr) -->
+      <!-- Hidden PayPal form -->
       <form id="paypal-form" method="post" action="https://www.paypal.com/cgi-bin/webscr" style="display:none">
         <input type="hidden" name="cmd" value="_xclick">
         <input type="hidden" name="business" value="vmmatica@gmail.com">
@@ -121,11 +116,10 @@
         <input type="hidden" name="quantity" id="pp_qty" value="1">
         <input type="hidden" name="currency_code" value="USD">
         <input type="hidden" name="no_shipping" value="1">
-        <!-- rm=1 => GET redirect (lets thanks.html read query params) -->
+        <!-- rm=1 => GET redirect so thanks.html can read ?amt= -->
         <input type="hidden" name="rm" value="1">
         <input type="hidden" name="return" value="https://baconartist.github.io/thanks.html">
         <input type="hidden" name="cancel_return" value="https://baconartist.github.io/form.html?cancel=1">
-        <!-- Lightweight metadata for your dashboard -->
         <input type="hidden" name="custom" id="pp_custom" value="">
       </form>
     </div>
@@ -175,7 +169,7 @@
 
   updateLabels(); updateStatus(); updateTotal();
 
-  // Submit visible form -> fill hidden PayPal form and POST
+  // Submit visible form -> set PayPal fields, save order, go to PayPal
   document.getElementById('ui-form').addEventListener('submit', (e)=>{
     e.preventDefault();
 
@@ -183,7 +177,6 @@
     const price = prices[plan] || 0;
     const qty   = Math.max(1, Number(qtyInput.value || 1));
 
-    // Build item name and custom notes
     const itemName =
       plan === 'campaign'
         ? `Campaign Mini (Best for Algorithm) — ${qty} cycle(s)`
@@ -194,16 +187,17 @@
       `Plan: ${plan}`,
       `Qty: ${qty}`,
       `Brief: ${briefInput.value || '(N/A)'}`
-    ].join(' | ').slice(0, 255); // PayPal custom field max length
+    ].join(' | ').slice(0, 255);
 
-    // Save for thanks.html (so we can show a nice receipt)
+    // Save for thanks.html (includes name now)
     localStorage.setItem('lastOrder', JSON.stringify({
       plan, qty, price,
       email: emailInput.value || '',
+      name:  nameInput.value  || '',
       brief: briefInput.value || ''
     }));
 
-    // Set hidden PayPal fields and submit
+    // Fill PayPal fields
     document.getElementById('pp_item_name').value = itemName;
     document.getElementById('pp_amount').value    = price.toFixed(2);
     document.getElementById('pp_qty').value       = qty;
