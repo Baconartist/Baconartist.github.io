@@ -1,210 +1,153 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Promotions — Pay</title>
-<style>
-  :root{
-    --bg:#0d1117;--card:#111827;--muted:#9aa4b2;--text:#e6edf3;--accent:#59c1ff;
-    --good:#22c55e;--warn:#f59e0b;--border:rgba(255,255,255,.08);
-    --limited-bg:rgba(245,158,11,.12);--active-bg:rgba(34,197,94,.12);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:linear-gradient(180deg,#0b0f14 0%,#0d1117 100%);color:var(--text);
-    font:400 16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:780px;margin:0 auto;padding:24px 16px 80px}
-  .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(6px);
-    background:rgba(13,17,23,.75);border-bottom:1px solid var(--border)}
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:780px;
-    margin:0 auto;padding:10px 16px}
-  .brand{display:flex;gap:10px;align-items:center}
-  .logo{width:36px;height:36px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#59c1ff,#8b5bff 55%,#ff5bbd 100%)}
-  .brand h1{font-size:16px;margin:0;letter-spacing:.2px}
-  .email{font-size:13px;color:var(--muted)} .email:hover{color:var(--text)}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:22px}
-  h2{margin:0 0 4px 0} .muted{color:var(--muted);font-size:13px}
-  form{display:grid;gap:16px;margin-top:8px}
-  label{font-size:14px}
-  input, select, textarea{
-    width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);
-    background:#0f1623;color:var(--text);font-size:14px;outline:none;
-  }
-  textarea{min-height:140px;resize:vertical}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media (max-width:640px){.row{grid-template-columns:1fr}}
-  .statusline{display:flex;align-items:center;justify-content:space-between}
-  .pill{padding:4px 10px;border-radius:999px;font-size:12px;border:1px solid var(--border)}
-  .active{background:var(--active-bg);color:#22c55e}
-  .limited{background:var(--limited-bg);color:#f59e0b}
-  .submit{display:flex;gap:10px;align-items:center}
-  .btn{display:inline-block;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
-    background:#0f1623;font-size:14px;text-align:center;transition:all .2s}
-  .btn.primary{background:linear-gradient(135deg,#59c1ff,#8b5bff);border:none;color:#fff;font-weight:600;
-    box-shadow:0 0 15px rgba(89,193,255,.35)}
-  .btn.primary:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(89,193,255,.5)}
-  .btn:hover{border-color:var(--accent)}
-  .total{font-weight:700}
-  footer{margin-top:28px;color:var(--muted);font-size:12px;text-align:center}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Book a DMetica TikTok promotion." />
+  <title>Book a promotion — DMetica</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="nav">
+  <header class="site-header">
     <div class="nav-inner">
-      <div class="brand"><div class="logo" aria-hidden="true"></div><h1>Promotions — Pay</h1></div>
-      <a class="email" href="mailto:vmmatica@gmail.com">vmmatica@gmail.com</a>
+      <a class="brand" href="index.html" aria-label="DMetica home"><span class="brand-mark" aria-hidden="true">D</span><span class="brand-name">DMetica</span></a>
+      <a class="header-link" href="mailto:vmmatica@gmail.com">vmmatica@gmail.com</a>
     </div>
-  </div>
+  </header>
 
-  <div class="wrap">
-    <div class="card">
-      <h2>Checkout</h2>
-      <div class="muted">Pay securely with PayPal. You’ll be redirected to complete payment.</div>
+  <main class="checkout-shell">
+    <a class="back-link" href="index.html">← Back to promotions</a>
+    <div class="checkout-layout">
+      <section class="checkout-intro" aria-labelledby="checkout-title">
+        <p class="eyebrow">Direct booking</p>
+        <h1 id="checkout-title">Let’s get your release in motion.</h1>
+        <p>Share the essentials, choose a placement, and complete payment through PayPal. Your details will be included in the order notification.</p>
+        <ul class="trust-list">
+          <li>Transparent pricing before you pay</li>
+          <li>PayPal handles the payment securely</li>
+          <li>Your brief is sent with the order details</li>
+        </ul>
+      </section>
 
-      <!-- Visible form -->
-      <form id="ui-form">
-        <div class="row">
-          <div>
-            <label for="plan">Plan</label>
-            <select id="plan" required>
-              <option value="vmmatica" data-price="20" data-status="Limited">@vmmatica — $20 per post</option>
-              <option value="vpolariss" data-price="18" data-status="Active">@vpolariss — $18 per post</option>
-              <option value="vjubzzs"  data-price="15" data-status="Active">@vjubzzs — $15 per post</option>
-              <option value="campaign" data-price="45" data-status="Active">Campaign Mini (Best for Algorithm) — $45 per cycle</option>
-            </select>
+      <section class="checkout-card" aria-labelledby="form-title">
+        <p class="eyebrow">Booking details</p>
+        <h2 id="form-title">Choose your placement</h2>
+        <p class="form-intro">After you submit, PayPal will open in a new checkout step. We’ll use your email to send the order receipt.</p>
+
+        <form id="ui-form">
+          <div class="field-row">
+            <div>
+              <label for="plan">Placement</label>
+              <select id="plan" required>
+                <option value="vmmatica" data-price="20" data-status="Limited">@vmmatica — $20 per post</option>
+                <option value="vpolariss" data-price="18" data-status="Active">@vpolariss — $18 per post</option>
+                <option value="vjubzzs" data-price="15" data-status="Active">@vjubzzs — $15 per post</option>
+                <option value="campaign" data-price="45" data-status="Active">Campaign Mini — $45 per cycle</option>
+              </select>
+            </div>
+            <div>
+              <label for="qty" id="qty-label">Number of videos</label>
+              <input id="qty" name="quantity" type="number" min="1" step="1" value="1" inputmode="numeric" required />
+            </div>
           </div>
-          <div>
-            <label for="qty" id="qty-label">Number of videos</label>
-            <input id="qty" type="number" min="1" value="1" required />
+
+          <div class="field-row">
+            <div>
+              <label for="email">Your email</label>
+              <input id="email" name="buyer_email" type="email" autocomplete="email" placeholder="you@example.com" required />
+            </div>
+            <div>
+              <label for="name">Artist / brand name</label>
+              <input id="name" name="artist_brand" type="text" autocomplete="organization" placeholder="Your name or brand" required />
+            </div>
           </div>
-        </div>
 
-        <div class="row">
           <div>
-            <label for="email">Your email (receipt)</label>
-            <input id="email" type="email" placeholder="you@example.com" required />
+            <label for="brief">Creative brief / requirements</label>
+            <textarea id="brief" name="creative_brief" placeholder="Goals, audio link(s), deadlines, must-haves, talking points…"></textarea>
           </div>
-          <div>
-            <label for="name">Artist / Brand name</label>
-            <input id="name" type="text" placeholder="Your name or brand" required />
+
+          <div class="checkout-summary">
+            <div><div class="summary-label">Availability</div><div class="summary-status" id="statusPill">Active</div></div>
+            <div><div class="summary-label">Estimated total</div><div class="summary-value" id="total">$20</div></div>
           </div>
-        </div>
 
-        <div>
-          <label for="brief">Creative Brief / Requirements</label>
-          <textarea id="brief" placeholder="Goals, audio link(s), deadlines, must-haves, talking points…"></textarea>
-        </div>
+          <div class="form-actions">
+            <button type="submit" class="button">Continue to PayPal</button>
+            <a href="index.html" class="button secondary">Cancel</a>
+          </div>
+          <p class="payment-note">Payment is processed on PayPal. No card details are stored on this site.</p>
+          <p class="cancel-note">Need a custom package? <a href="mailto:vmmatica@gmail.com">Email us before booking.</a></p>
+        </form>
 
-        <div class="statusline">
-          <span class="pill" id="statusPill">Status: Active</span>
-          <div><span class="muted">Total:</span> <span class="total" id="total">$20</span></div>
-        </div>
-
-        <div class="submit">
-          <button type="submit" class="btn primary">Pay with PayPal</button>
-          <a href="index.html" class="btn">Back</a>
-        </div>
-      </form>
-
-      <!-- Hidden PayPal form -->
-      <form id="paypal-form" method="post" action="https://www.paypal.com/cgi-bin/webscr" style="display:none">
-        <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="business" value="vmmatica@gmail.com">
-        <input type="hidden" name="item_name" id="pp_item_name" value="Promotion">
-        <input type="hidden" name="amount" id="pp_amount" value="20">
-        <input type="hidden" name="quantity" id="pp_qty" value="1">
-        <input type="hidden" name="currency_code" value="USD">
-        <input type="hidden" name="no_shipping" value="1">
-        <!-- rm=1 => GET redirect so thanks.html can read ?amt= -->
-        <input type="hidden" name="rm" value="1">
-        <input type="hidden" name="return" value="https://baconartist.github.io/thanks.html">
-        <input type="hidden" name="cancel_return" value="https://baconartist.github.io/form.html?cancel=1">
-        <input type="hidden" name="custom" id="pp_custom" value="">
-      </form>
+        <form id="paypal-form" method="post" action="https://www.paypal.com/cgi-bin/webscr" hidden>
+          <input type="hidden" name="cmd" value="_xclick" />
+          <input type="hidden" name="business" value="vmmatica@gmail.com" />
+          <input type="hidden" name="item_name" id="pp_item_name" value="Promotion" />
+          <input type="hidden" name="amount" id="pp_amount" value="20.00" />
+          <input type="hidden" name="quantity" id="pp_qty" value="1" />
+          <input type="hidden" name="currency_code" value="USD" />
+          <input type="hidden" name="no_shipping" value="1" />
+          <input type="hidden" name="rm" value="1" />
+          <input type="hidden" name="return" value="https://baconartist.github.io/thanks.html" />
+          <input type="hidden" name="cancel_return" value="https://baconartist.github.io/form.html?cancel=1" />
+          <input type="hidden" name="custom" id="pp_custom" value="" />
+          <input type="hidden" name="invoice" id="pp_invoice" value="" />
+        </form>
+      </section>
     </div>
+  </main>
 
-    <footer>© <span id="year"></span> Promotions with @vmmatica</footer>
-  </div>
+  <script>
+    const prices = { vmmatica: 20, vpolariss: 18, vjubzzs: 15, campaign: 45 };
+    const statuses = { vmmatica: 'Limited', vpolariss: 'Active', vjubzzs: 'Active', campaign: 'Active' };
+    const qs = new URLSearchParams(location.search);
+    const planSelect = document.getElementById('plan');
+    const qtyInput = document.getElementById('qty');
+    const emailInput = document.getElementById('email');
+    const nameInput = document.getElementById('name');
+    const briefInput = document.getElementById('brief');
+    const totalEl = document.getElementById('total');
+    const statusPill = document.getElementById('statusPill');
+    const qtyLabel = document.getElementById('qty-label');
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+    const initialPlan = qs.get('plan');
+    if (initialPlan && prices[initialPlan]) planSelect.value = initialPlan;
 
-  const prices   = { vmmatica:20, vpolariss:18, vjubzzs:15, campaign:45 };
-  const statuses = { vmmatica:'Limited', vpolariss:'Active', vjubzzs:'Active', campaign:'Active' };
+    function updateFormSummary() {
+      const plan = planSelect.value;
+      const quantity = Math.max(1, Number(qtyInput.value || 1));
+      const status = statuses[plan] || 'Active';
+      qtyLabel.textContent = plan === 'campaign' ? 'Number of campaign cycles' : 'Number of videos';
+      statusPill.textContent = status;
+      statusPill.className = 'summary-status' + (status === 'Limited' ? ' limited' : '');
+      totalEl.textContent = '$' + ((prices[plan] || 0) * quantity).toLocaleString();
+    }
 
-  const qs = new URLSearchParams(location.search);
-  const planSelect = document.getElementById('plan');
-  const qtyInput   = document.getElementById('qty');
-  const emailInput = document.getElementById('email');
-  const nameInput  = document.getElementById('name');
-  const briefInput = document.getElementById('brief');
+    planSelect.addEventListener('change', updateFormSummary);
+    qtyInput.addEventListener('input', updateFormSummary);
+    updateFormSummary();
 
-  const totalEl    = document.getElementById('total');
-  const statusPill = document.getElementById('statusPill');
-  const qtyLabel   = document.getElementById('qty-label');
+    document.getElementById('ui-form').addEventListener('submit', event => {
+      event.preventDefault();
+      if (!event.currentTarget.reportValidity()) return;
 
-  // Preselect plan from ?plan=
-  const initialPlan = qs.get('plan');
-  if (initialPlan && prices[initialPlan]) planSelect.value = initialPlan;
+      const plan = planSelect.value;
+      const price = prices[plan] || 0;
+      const quantity = Math.max(1, Number(qtyInput.value || 1));
+      const total = price * quantity;
+      const invoice = 'DM-' + Date.now();
+      const itemName = plan === 'campaign' ? `Campaign Mini — ${quantity} cycle(s)` : `@${plan} — ${quantity} video(s)`;
+      const order = { invoice, plan, quantity, price, total, email: emailInput.value.trim(), name: nameInput.value.trim(), brief: briefInput.value.trim() };
 
-  function updateLabels(){
-    const p = planSelect.value;
-    qtyLabel.textContent = (p === 'campaign') ? 'Number of campaign cycles' : 'Number of videos';
-  }
-  function updateStatus(){
-    const st = statuses[planSelect.value] || 'Active';
-    statusPill.textContent = `Status: ${st}`;
-    statusPill.className = 'pill ' + (st === 'Limited' ? 'limited' : 'active');
-  }
-  function updateTotal(){
-    const price = prices[planSelect.value] || 0;
-    const qty = Math.max(1, Number(qtyInput.value || 1));
-    const total = price * qty;
-    totalEl.textContent = `$${total.toLocaleString()}`;
-  }
-
-  planSelect.addEventListener('change', ()=>{ updateLabels(); updateStatus(); updateTotal(); });
-  qtyInput.addEventListener('input', updateTotal);
-
-  updateLabels(); updateStatus(); updateTotal();
-
-  // Submit visible form -> set PayPal fields, save order, go to PayPal
-  document.getElementById('ui-form').addEventListener('submit', (e)=>{
-    e.preventDefault();
-
-    const plan  = planSelect.value;
-    const price = prices[plan] || 0;
-    const qty   = Math.max(1, Number(qtyInput.value || 1));
-
-    const itemName =
-      plan === 'campaign'
-        ? `Campaign Mini (Best for Algorithm) — ${qty} cycle(s)`
-        : `@${plan} — ${qty} video(s)`;
-    const custom = [
-      `Client: ${nameInput.value || '(N/A)'}`,
-      `Email: ${emailInput.value || '(N/A)'}`,
-      `Plan: ${plan}`,
-      `Qty: ${qty}`,
-      `Brief: ${briefInput.value || '(N/A)'}`
-    ].join(' | ').slice(0, 255);
-
-    // Save for thanks.html (includes name now)
-    localStorage.setItem('lastOrder', JSON.stringify({
-      plan, qty, price,
-      email: emailInput.value || '',
-      name:  nameInput.value  || '',
-      brief: briefInput.value || ''
-    }));
-
-    // Fill PayPal fields
-    document.getElementById('pp_item_name').value = itemName;
-    document.getElementById('pp_amount').value    = price.toFixed(2);
-    document.getElementById('pp_qty').value       = qty;
-    document.getElementById('pp_custom').value    = custom;
-
-    document.getElementById('paypal-form').submit();
-  });
-</script>
+      localStorage.setItem('lastOrder', JSON.stringify(order));
+      document.getElementById('pp_item_name').value = itemName;
+      document.getElementById('pp_amount').value = price.toFixed(2);
+      document.getElementById('pp_qty').value = quantity;
+      document.getElementById('pp_invoice').value = invoice;
+      document.getElementById('pp_custom').value = JSON.stringify({ invoice, plan, quantity, email: order.email, name: order.name, brief: order.brief }).slice(0, 255);
+      document.getElementById('paypal-form').submit();
+    });
+  </script>
 </body>
 </html>
